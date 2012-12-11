@@ -1,4 +1,4 @@
-ccl3
-====
+UN/CEFACT CCL3.0
+================
 
-Validation rules for UN/CEFACT CCL3
+Validation rules for UN/CEFACT CCL 3.0
