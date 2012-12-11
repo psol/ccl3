@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" queryBinding="xslt2">
    <sch:title>CCTS 3.0 Validation Rules</sch:title>
-   <sch:p>Version: December 10, 2012</sch:p>
+   <sch:p>Version: December 11, 2012</sch:p>
    <sch:p>Based on validation rules compiled by Chris et Mary Kay on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
    <sch:pattern>
-      <sch:title>Dictionary Entry Name and Terms Coherence Rules</sch:title>
+      <sch:title>Dictionary Entry Name and Terms Coherence</sch:title>
       <sch:rule context="ccts:AggregateCoreComponent [string-length(ccts:DictionaryEntryName) gt 0]">
-         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:ObjectClassTerm, '. Details')">(0009-0025) Dictionary Entry Name components shall be separated by dots</sch:assert>
+         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:ObjectClassTerm, '. Details')">(0009-0026) Dictionary Entry Name components shall be separated by dots</sch:assert>
          <sch:assert test="every $acc in preceding-sibling::ccts:AggregateCoreComponent satisfies $acc/ccts:DictionaryEntryName != ccts:DictionaryEntryName">(0002-000D-0011) Dictionary Entry Name shall be unique</sch:assert>
       </sch:rule>
-      <sch:rule context="ccts:BasicCoreComponent [string-length(ccts:DictionaryEntryName) gt 0]">
-         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:RepresentationTerm)">(0009) Dictionary Entry Name components shall be separated by dots</sch:assert>
+      <sch:rule context="ccts:BasicCoreComponent [string-length(ccts:DictionaryEntryName) gt 0] | ccts:AssociationCoreComponent [string-length(ccts:DictionaryEntryName) gt 0]">
+         <sch:let name="typing" value="if (self::ccts:BasicCoreComponent) then ccts:RepresentationTerm else ccts:AssociatedObjectClassTerm"/>
+         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', $typing)">(0009-002C-002F-0030) Dictionary Entry Name components shall be separated by dots</sch:assert>
          <sch:assert test="ccts:ObjectClassTerm = parent::ccts:AggregateCoreComponent/ccts:ObjectClassTerm">Object Class Term shall be coherent</sch:assert>
-         <sch:assert test="every $bcc in preceding-sibling::ccts:BasicCoreComponent satisfies $bcc/ccts:DictionaryEntryName != ccts:DictionaryEntryName">(0002-000D) Dictionary Entry Name shall be unique</sch:assert>
-      </sch:rule>
-      <sch:rule context="ccts:AssociationCoreComponent [string-length(ccts:DictionaryEntryName) gt 0]">
-         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:AssociatedObjectClassTerm)">(0009) Dictionary Entry Name components shall be separated by dots</sch:assert>
-         <sch:assert test="ccts:ObjectClassTerm = parent::ccts:AggregateCoreComponent/ccts:ObjectClassTerm">Object Class Term shall be coherent</sch:assert>
-         <sch:assert test="every $ascc in preceding-sibling::ccts:AssociationCoreComponent satisfies ($ascc/ccts:PropertyTerm != ccts:PropertyTerm) or ($ascc/ccts:AssociatedObjectClassTerm != ccts:AssociatedObjectClassTerm)">(0002-000D) Dictionary Entry Name shall be unique</sch:assert>
+         <sch:assert test="every $o in preceding-sibling::ccts:BasicCoreComponent | preceding-sibling::ccts:AssociationCoreComponent satisfies $o/ccts:DictionaryEntryName != ccts:DictionaryEntryName">(0002-000D-0027) Dictionary Entry Name shall be unique</sch:assert>
       </sch:rule>
       <sch:rule context="ccts:AssociationCoreComponentProperty [string-length(ccts:DictionaryEntryName) gt 0]">
-         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:PropertyTerm, '. ', ccts:AssociatedObjectClassTerm)">(0009) Dictionary Entry Name components shall be separated by dots</sch:assert>
+         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:PropertyTerm, '. ', ccts:AssociatedObjectClassTerm)">(0009-002E) Dictionary Entry Name components shall be separated by dots</sch:assert>
          <sch:assert test="every $asccp in preceding-sibling::ccts:AssociationCoreComponentProperty satisfies ($asccp/ccts:PropertyTerm != ccts:PropertyTerm) or ($asccp/ccts:AssociatedObjectClassTerm != ccts:AssociatedObjectClassTerm)">(0002-000D) Dictionary Entry Name shall be unique</sch:assert>
       </sch:rule>
       <sch:rule context="ccts:BasicCoreComponentProperty [string-length(ccts:DictionaryEntryName) gt 0]">
-         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:PropertyTerm, '. ', ccts:RepresentationTerm)">(0009) Dictionary Entry Name components shall be separated by dots</sch:assert>
+         <sch:assert test="ccts:DictionaryEntryName = concat (ccts:PropertyTerm, '. ', ccts:RepresentationTerm)">(0009-002E) Dictionary Entry Name components shall be separated by dots</sch:assert>
          <sch:assert test="every $bccp in preceding-sibling::ccts:BasicCoreComponentProperty satisfies ($bccp/ccts:PropertyTerm != ccts:PropertyTerm) or ($bccp/ccts:RepresentationTerm != ccts:RepresentationTerm)">(0002-000D) Dictionary Entry Name shall be unique</sch:assert>
       </sch:rule>
       <sch:rule context="ccts:DataType/ccts:CoreDataType [string-length(ccts:DictionaryEntryName) gt 0]">
@@ -47,7 +43,7 @@
    </sch:pattern>
 
    <sch:pattern>
-      <sch:title>Dictionary Entry Name Validation Rules</sch:title>
+      <sch:title>Dictionary Entry Name</sch:title>
       <sch:rule context="ccts:DictionaryEntryName">
          <sch:let name="words" value="tokenize (., '[\. ]+')"/>
          <sch:assert test="string-length (.) gt 0">Dictionary Entry Name shall not be empty</sch:assert>
@@ -60,8 +56,8 @@
    </sch:pattern>
 
    <sch:pattern>
-      <sch:title>Dictionary Entry Name and Definition Validation Rules</sch:title>
-      <!-- FIXME: I choose to ignore the Details, Type or representation term from the definition --> 
+      <sch:title>Dictionary Entry Name and Definition</sch:title>
+      <!-- I ignore the Details, Type or representation term from the definition to implement this rule --> 
       <sch:rule context="ccts:AggregateCoreComponent | ccts:BasicCoreComponent | ccts:AssociationCoreComponent | ccts:AssociationCoreComponentProperty | ccts:DataType/ccts:CoreDataType | ccts:CoreDataTypeContentComponent | ccts:CoreDataTypeSupplementaryComponent">
          <sch:let name="big-name" value="concat (ccts:ObjectClassTerm, ' ', ccts:PropertyTerm, ' ', ccts:AssociatedObjectClassTerm, ' ', ccts:AssociatedObjectClassTerm, ' ', ccts:DataTypeTerm)"/>
          <sch:let name="words" value="tokenize ($big-name, '[ ]+')"/>
@@ -70,7 +66,7 @@
    </sch:pattern>
 
    <sch:pattern>
-      <sch:title>Uniqueness Validation Rules</sch:title>
+      <sch:title>Uniqueness</sch:title>
       <!-- I choose the most efficient implementation (but also the one that is hardest to track), because I expect this will be a very few violations -->
       <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition">
          <sch:let name="definitions" value="//ccts:Definition[string-length (.) gt 0]"/>
@@ -89,7 +85,7 @@
    </sch:pattern>
 
    <sch:pattern>
-      <sch:title>Object Completeness validation rules</sch:title>
+      <sch:title>Object Completeness</sch:title>
       <sch:rule context="ccts:AggregateCoreComponent | ccts:BasicCoreComponent | ccts:AssociationCoreComponent | ccts:AssociationCoreComponentProperty | ccts:BasicCoreComponentProperty | ccts:DataType/ccts:CoreDataType | ccts:CoreDataTypeContentComponent | ccts:CoreDataTypeSupplementaryComponent">
          <sch:assert test="((child::ccts:UniqueID) and (child::ccts:VersionID)) or (string-length(ccts:DictionaryEntryName) eq 0)">(0023-0024) Each object shall have unique ID and version ID</sch:assert>
          <sch:assert test="((child::ccts:DictionaryEntryName) and (child::ccts:Definition)) or (string-length(ccts:DictionaryEntryName) eq 0)">(0027) Each object shall have a common information class</sch:assert>
@@ -98,19 +94,73 @@
 
    <sch:pattern>
       <sch:title>Definition Validation Rules</sch:title>
-      <sch:rule context="ccts:Definition [string-length(.) > 0]">
+      <sch:rule context="ccts:Definition [string-length(.) gt 0]">
          <sch:let name="sentences" value="tokenize (., '\.')"/>
          <!-- http://strainindex.wordpress.com/2008/07/28/the-average-sentence-length/ -->
-         <!-- FIXME: what do we consider short? get rid of it or make it optional -->
-         <sch:assert test="every $sentence in $sentences satisfies count (tokenize ($sentence, '\p{Zs}')) lt 22">(0010) Sentences in definition shall be short.</sch:assert>
+         <sch:assert test="every $sentence in $sentences satisfies count (tokenize ($sentence, '\p{Zs}')) lt 22" role="warning">(0010) Sentences in definition shall be short.</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern>
+      <sch:title>Cardinality</sch:title>
+      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociationCoreComponent">
+         <sch:assert test="(child::ccts:Cardinality/ccts:MinimumOccurenceValue and child::ccts:Cardinality/ccts:MaximumOccurenceValue) or (string-length(ccts:DictionaryEntryName) eq 0)">(0029) Object shall have a cardinality</sch:assert>
+      </sch:rule>
+      <sch:rule context="ccts:Cardinality">
+         <!-- FIXME: replace with the shorthand eq... -->
+         <sch:let name="max" value="number (ccts:MaximumOccurenceValue)"/>
+         <sch:assert test="number (ccts:MinimumOccurenceValue) >= 0">//------// (002A) Occurence minimum shall be zero or a positive integer</sch:assert>
+         <sch:assert test="ccts:MaximumOccurenceValue = 'unbounded' or number (ccts:MaximumOccurenceValue) >= 0">//------// (002A) Occurence maximum shall be zero or a positive integer or 'unbounded'</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern>
+      <sch:title>Sequency Key</sch:title>
+      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociationCoreComponent">
+         <sch:assert test="(child::ccts:SequencingKeyOrdinal and (ccts:SequencingKeyOrdinal castable as xs:integer)) or not (string-length (ccts:DictionaryEntryName) gt 0)">(002B) CCs and AsCCs need a unique sequencing key</sch:assert>
+      </sch:rule>
+      <sch:rule context="ccts:AggregateCoreComponent [string-length (ccts:DictionaryEntryName) gt 0]">
+         <sch:let name="keys" value="ccts:BasicCoreComponent/ccts:SequencingKeyOrdinal | ccts:AssociationCoreComponent/ccts:SequencingKeyOrdinal"/>
+         <sch:assert test="count ($keys) = count (distinct-values ($keys))">(002B) Sequencing key shall be unique in an ACC</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern>
+      <sch:title>AsCC Property</sch:title>
+      <sch:rule context="ccts:AssociationCoreComponent">
+         <sch:assert test="child::ccts:AssociationCoreComponentPropertyUID">(002D) An AsCC Property shall be defined for each AsCC</sch:assert>
+         <sch:let name="uid" value="ccts:AssociationCoreComponentPropertyUID"/>
+         <sch:let name="property" value="../../ccts:AssociationCoreComponentProperty [ccts:UniqueID = $uid]"/>
+         <sch:assert test="count ($property) = 1">(002D) An AsCC Property shall be defined for each AsCC</sch:assert>
+         <sch:assert test="$property/ccts:PropertyTerm = ccts:PropertyTerm" role="warning">AsCC Property Term shall be coherent with its property</sch:assert>
+         <sch:assert test="$property/ccts:AssociatedObjectClassTerm = ccts:AssociatedObjectClassTerm" role="warning">AsCC Associated Object Class Term shall be coherent with its property</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern>
+      <sch:title>BCC Property</sch:title>
+      <sch:rule context="ccts:BasicCoreComponent">
+         <sch:assert test="child::ccts:BasicCoreComponentPropertyUID">(0031) A BCC Property shall be defined for each BCC</sch:assert>
+         <sch:assert test="child::ccts:CoreDataTypeUID">(0032) A BCC Property shall only use an approved CDT</sch:assert>
+         <sch:assert test="child::ccts:RepresentationTerm">(0033) A representation term shall be defined for each BCC</sch:assert>
+         <sch:let name="puid" value="ccts:BasicCoreComponentPropertyUID"/>
+         <sch:let name="property" value="../../ccts:BasicCoreComponentProperty [ccts:UniqueID = $puid]"/>
+         <sch:assert test="count ($property) eq 1">(002D) A BCC Property shall be defined for each BCC</sch:assert>
+         <sch:assert test="$property/ccts:PropertyTerm = ccts:PropertyTerm" role="warning">A BCC Property Term shall be coherent with its property</sch:assert>
+         <sch:assert test="$property/ccts:RepresentationTerm = ccts:RepresentationTerm" role="warning">A BCC Representation Term shall be coherent with its property</sch:assert>
+         <sch:let name="duid" value="ccts:CoreDataTypeUID"/>
+         <sch:let name="dt" value="../../../ccts:DataType/ccts:CoreDataType [ccts:UniqueID = $duid]"/>
+         <sch:assert test="count ($dt) eq 1">(0032) A BCC Property shall only use an approved CDT</sch:assert>
+         <sch:assert test="$dt/ccts:DictionaryEntryName = ccts:CoreDataType" role="warning">A BCC Property Core Data Type shall be coherent with its datatype</sch:assert>
       </sch:rule>
    </sch:pattern>
 
    <sch:pattern>
       <sch:title>Not implemented yet</sch:title>
-      <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition">
-         <sch:assert test="not (//ccts:UsageRule)">Validation of Usage Rule is not implemented yet</sch:assert>
-         <sch:assert test="not (//ccts:LocalizedMetadata)">Validation of Localized Metadata is not implemented yet</sch:assert>
+      <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition" role="warning">
+         <sch:report test="//ccts:UsageRule">Validation of Usage Rule is not implemented yet</sch:report>
+         <sch:report test="//ccts:LocalizedMetadata">Validation of Localized Metadata is not implemented yet</sch:report>
+         <sch:report test="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent/ccts:AssociationCoreComponent [number (ccts:Cardinality/ccts:MinimumOccurenceValue) gt 0]">(0028) Loop detection on ASCC not properly implemented yet but infinte loop may occur</sch:report>
       </sch:rule>
    </sch:pattern>
 
