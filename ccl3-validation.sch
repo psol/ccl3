@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- TEST -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" queryBinding="xslt2">
    <sch:title>CCTS 3.0 Validation Rules</sch:title>
    <sch:p>Copyright 2012, Benoît Marchal http://marchal.com. This work is licensed under the Creative Commons BY-SA license 3.0.</sch:p>
