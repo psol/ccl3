@@ -36,7 +36,7 @@
 	<!-- ================================================================== -->
 	<!-- =====  Inclusion of Business Information Entity                                               ===== -->
 	<!-- ================================================================== -->
-	<xsd:include schemaLocation="BusinessInformationEntity_odp6.xsd"/>
+	<xsd:include schemaLocation="BusinessInformationEntity_odp6_KJS.xsd"/>
 	<!-- ================================================================== -->
 	<!-- =====  Root element                                          ===== -->
 	<!-- ================================================================== -->

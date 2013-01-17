@@ -99,6 +99,10 @@
 	<!-- =====      Type Definitions                                                                                        ===== -->
 	<!-- ====================================================================== -->
 	<xsd:complexType name="AggregateBusinessInformationEntityType">
+		<xsd:annotation>
+			<xsd:documentation>
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
@@ -118,6 +122,37 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="AggregateCoreComponentType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ChangeRequest>
+					<Type/>
+					<WorkingComments/>
+					<RefVersionID/>
+					<SubmitterID/>
+					<RefChangeRequestID/>
+					<ID/>
+					<Harmonization>
+						<Status/>
+						<StatusDate/>
+						<Comment/>
+					</Harmonization>
+					<SubmittedDefinition/>
+					<SubmitterComment/>
+					<SubmittedDEN/>
+				</ChangeRequest>
+				<Publication>
+					<Examples/>
+					<TDED/>
+					<Source/>
+					<Comment/>
+					<Deprecation>
+						<Type/>
+						<SubmitterID/>
+						<AppliedVersionID/>
+					</Deprecation>
+				</Publication>
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
@@ -134,6 +169,37 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="AssociationBusinessInformationEntityType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ChangeRequest>
+					<Type/>
+					<WorkingComments/>
+					<RefVersionID/>
+					<SubmitterID/>
+					<RefChangeRequestID/>
+					<ID/>
+					<Harmonization>
+						<Status/>
+						<StatusDate/>
+						<Comment/>
+					</Harmonization>
+					<SubmittedDefinition/>
+					<SubmitterComment/>
+					<SubmittedDEN/>
+				</ChangeRequest>
+				<Publication>
+					<Examples/>
+					<TDED/>
+					<Source/>
+					<Comment/>
+					<Deprecation>
+						<Type/>
+						<SubmitterID/>
+						<AppliedVersionID/>
+					</Deprecation>
+				</Publication>
+			</xsd:documentation>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
