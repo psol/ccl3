@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== -->
+<!-- =====  BDT XML Schema File                                                                           ===== -->
+<!-- ====================================================================== -->
+<!--
+  	Schema agency: 	UN/CEFACT 
+  	Schema version:	3.0
+  	Schema date: 		20 January 2011
+  	
+  	Copyright (C) UN/CEFACT (2011). All Rights Reserved.
+
+	This document and translations of it may be copied and furnished to others, 
+	and derivative works that comment on or otherwise explain it or assist 
+	in its implementation may be prepared, copied, published and distributed, 
+	in whole or in part, without restriction of any kind, provided that the 
+	above copyright notice and this paragraph are included on all such copies 
+	and derivative works. However, this document itself may not be modified in 
+	any way, such as by removing the copyright notice or references to 
+	UN/CEFACT, except as needed for the purpose of developing UN/CEFACT 
+	specifications, in which case the procedures for copyrights defined in the 
+	UN/CEFACT Intellectual Property Rights document must be followed, or as 
+	required to translate it into languages other than English.
+
+	The limited permissions granted above are perpetual and will not be revoked 
+	by UN/CEFACT or its successors or assigns.
+
+	This document and the information contained herein is provided on an "AS IS"
+	basis and UN/CEFACT DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING 
+	BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL 
+	NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR 
+	FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:common="urn:un:unece:uncefact:data:common:1:draft" xmlns="urn:un:unece:uncefact:ccl:draft:xmlforccts:3" xmlns:clm5639220081107="urn:un:unece:uncefact:codelist:common:20081107:draft:5_6392A_20081107DraftANDR3" xmlns:ccts="urn:un:unece:uncefact:documentation:commmon:3:draft" targetNamespace="urn:un:unece:uncefact:ccl:draft:xmlforccts:3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.0">
+	<!--Data Types-->
+	<!-- ================================================================== -->
+	<!-- =====  Imports                                                                                                  ===== -->
+	<!-- ================================================================== -->
+	<!-- =====  Import of XML Schema Business Data Type                                         ===== -->
+	<!-- ================================================================== -->
+	<xsd:import namespace="urn:un:unece:uncefact:data:common:1:draft" schemaLocation="../../../Common/1/draft/6_XBT_1DraftNNDR3_odp6.xsd"/>
+	<!-- ================================================================== -->
+	<!-- =====  Import of Code List                                           ===== -->
+	<!-- ================================================================== -->
+	<xsd:import namespace="urn:un:unece:uncefact:codelist:common:20081107:draft:5_6392A_20081107DraftANDR3" schemaLocation="..\..\..\..\codelist\common\20081107\draft\5_6392A_20081107DraftANDR3_odp6.xsd"/>
+	<!-- ====================================================================== -->
+	<!-- ===== Type Definitions                                                                                               ===== -->
+	<!-- ====================================================================== -->
+	<xsd:simpleType name="BooleanType">
+		<xsd:restriction base="xsd:boolean">
+			<xsd:pattern value="false"/>
+			<xsd:pattern value="true"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="IntegerType">
+		<xsd:restriction base="xsd:integer"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="NonNegativeIntegerType">
+		<xsd:annotation>
+			<xsd:documentation>Not directly listed as a supported Primitive. However it implements the specific enumeration of the set of Integers required.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:nonNegativeInteger"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="StringType">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="TokenType">
+		<xsd:restriction base="xsd:token"/>
+	</xsd:simpleType>
+	<xsd:complexType name="CodeType_2A09AC">
+		<xsd:annotation>
+			<xsd:documentation>Language Code ComplexType</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ValueType_E990BA">
+				<xsd:attribute name="ID" type="TokenType"/>
+				<xsd:attribute name="versionID" type="TokenType"/>
+				<xsd:attribute name="agencyID" type="TokenType"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="CodeType_ED40BA">
+		<xsd:simpleContent>
+			<xsd:extension base="TokenType">
+				<xsd:attribute name="ID" type="TokenType"/>
+				<xsd:attribute name="versionID" type="TokenType"/>
+				<xsd:attribute name="agencyID" type="TokenType"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="IDType_655749">
+		<xsd:simpleContent>
+			<xsd:extension base="TokenType">
+				<xsd:attribute name="ID" type="TokenType" use="optional"/>
+				<xsd:attribute name="versionID" type="TokenType" use="optional"/>
+				<xsd:attribute name="agencyID" type="TokenType" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="IndicatorType_CD0DC6">
+		<xsd:simpleContent>
+			<xsd:extension base="BooleanType"/>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="NameType_ADAD10">
+		<xsd:simpleContent>
+			<xsd:extension base="TokenType">
+				<xsd:attribute name="languageCode" type="clm5639220081107:LanguageCodeContentType" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="OrdinalType_PQALZM">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				<ccts:UniqueID>PQALZM</ccts:UniqueID>
+				<ccts:VersionID>1.0</ccts:VersionID>
+				<ccts:DictionaryEntryName>Ordinal. Type</ccts:DictionaryEntryName>
+				<ccts:Definition>An ordinal number is an assigned mathematical number that represents order or sequence</ccts:Definition>
+				<ccts:DataTypeTermName>Ordinal</ccts:DataTypeTermName>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:annotation>
+				<xsd:documentation>
+					<ccts:ContentComponentValueDomain>
+						<ccts:Definition>An assigned mathematical number that represents order or sequence</ccts:Definition>
+						<ccts:DefaultIndicator>True</ccts:DefaultIndicator>
+						<ccts:PrimitiveTypeName>Integer</ccts:PrimitiveTypeName>
+					</ccts:ContentComponentValueDomain>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TextType_568D06">
+		<xsd:simpleContent>
+			<xsd:extension base="TokenType">
+				<xsd:attribute name="languageCode" type="clm5639220081107:LanguageCodeContentType" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="ValueType_D39AEF">
+		<xsd:restriction base="TokenType"/>
+	</xsd:simpleType>
+	<xsd:complexType name="ValueType_C14BE1">
+		<xsd:simpleContent>
+			<xsd:extension base="StringType"/>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="ValueType_677794">
+		<xsd:simpleContent>
+			<xsd:extension base="NonNegativeIntegerType"/>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="MaximumCardinalityValueType_8D0182">
+		<xsd:restriction base="TokenType">
+			<xsd:pattern value="[1-9][0-9]*"/><!-- CORRECTION by KJS on 18/01/2012 -->
+			<xsd:pattern value="unbounded"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ValueType_E990BA">
+		<xsd:annotation>
+			<xsd:documentation>Language Code Content Value Type</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="TokenType"/>
+	</xsd:simpleType>
+</xsd:schema>

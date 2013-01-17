@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==================================================================== -->
+<!-- ===== XML Schema Builtin Type Extension XML Schema File 								    ===== -->
+<!-- ==================================================================== -->
+<!--
+  	Schema agency: 	UN/CEFACT 
+  	Schema version:	1.0 Draft N 
+  	Schema date: 	    20 January 2011
+  	
+  	Copyright (C) UN/CEFACT (2010). All Rights Reserved.
+
+	This document and translations of it may be copied and furnished to others, 
+	and derivative works that comment on or otherwise explain it or assist 
+	in its implementation may be prepared, copied, published and distributed, 
+	in whole or in part, without restriction of any kind, provided that the 
+	above copyright notice and this paragraph are included on all such copies 
+	and derivative works. However, this document itself may not be modified in 
+	any way, such as by removing the copyright notice or references to 
+	UN/CEFACT, except as needed for the purpose of developing UN/CEFACT 
+	specifications, in which case the procedures for copyrights defined in the 
+	UN/CEFACT Intellectual Property Rights document must be followed, or as 
+	required to translate it into languages other than English.
+
+	The limited permissions granted above are perpetual and will not be revoked 
+	by UN/CEFACT or its successors or assigns.
+
+	This document and the information contained herein is provided on an "AS IS"
+	basis and UN/CEFACT DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING 
+	BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL 
+	NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR 
+	FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Copyright (C) UN/CEFACT (2011). All Rights Reserved.
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xbt="urn:un:unece:uncefact:data:common:1:draft" targetNamespace="urn:un:unece:uncefact:data:common:1:draft" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- ================================================================== -->
+	<!-- =====  Type Definitions                                                                                    ===== -->
+	<!-- =================================================================== -->
+	<!-- ===== Type Definitions Duration                                                                        ===== -->
+	<!-- =================================================================== -->
+	<xsd:simpleType name="WeekDurationType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: nW</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="\d+W"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- =================================================================== -->
+	<!-- ===== Type Definitions Date                                                                                ===== -->
+	<!-- =================================================================== -->
+	<xsd:simpleType name="CenturyType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: CC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:date">
+			<xsd:pattern value="([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30)"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-D</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:gDay">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: --MM-DD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:gMonthDay">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: --MM--</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:gMonth">
+			<xsd:pattern value="--(0[1-9]|1[012])--"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-D</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearMonthType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:gYearMonth">
+			<xsd:pattern value="[0-9]{4}-(0[1-9]|1[012]) "/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:gYear">
+			<xsd:pattern value="[0-9]{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-D</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- =================================================================== -->
+	<!-- ===== Type Definitions Time                                                                                ===== -->
+	<!-- =================================================================== -->
+	<xsd:simpleType name="HourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([01][0-9]|2[0-3]):[0-5][0-9])|(24:00)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="HourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([0-1][0-9]|2[0-4])([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MinuteSecondType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-[0-5][0-9]:[0-5][0-9](|(\.[0-9]+))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SecondType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: --ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--[0-5][0-9](|(\.[0-9]+))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:time">
+			<xsd:pattern value="(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:time">
+			<xsd:pattern value="(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: hh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:time">
+			<xsd:pattern value="(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- =================================================================== -->
+	<!-- ===== Type Definitions DateTime                                                                       ===== -->
+	<!-- =================================================================== -->
+	<xsd:simpleType name="DateHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T(([01][0-9]|2[0-3]):[0-5][0-9])|(24:00)"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T(([01][0-9]|2[0-3]):[0-5][0-9])|(24:00)"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T(([01][0-9]|2[0-3]):[0-5][0-9])|(24:00)"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T(([01][0-9])|(2[0-4]))"/>
+			<xsd:pattern value="(([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9]))T(([01][0-9])|(2[0-4]))"/>
+			<xsd:pattern value="(([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8]))T(([01][0-9])|(2[0-4]))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T(([01][0-9])|(2[0-4]))Z"/>
+			<xsd:pattern value="(([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9]))T(([01][0-9])|(2[0-4]))Z"/>
+			<xsd:pattern value="(([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8]))T(([01][0-9])|(2[0-4]))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T(([01][0-9])|(2[0-4]))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="(([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9]))T(([01][0-9])|(2[0-4]))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="(([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8]))T(([01][0-9])|(2[0-4]))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DateTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-MM-DDThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value="(([0-9]{4})-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|([0-9]{4})-((0[469])|(11))-(0[1-9]|[12][0-9]|30))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-(02)-(0[1-9]|1[0-9]|2[0-9])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-(02)-(0[1-9]|1[0-9]|2[0-8])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T([0-1][0-9]|2[0-4])[\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T([0-1][0-9]|2[0-4])[\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfWeekTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -W-DThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayOfYearTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -DDDThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DayTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: ---DDThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="---(0[1-9]|[12][0-9]|3[01])T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T([0-1][0-9]|2[0-4])[\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="MonthDayTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -MM-DDThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="--(((0[13578]-(0[1-9]|[12][0-9]|3[01]))|(1[02]-(0[1-9]|[12][0-9]|3[01])))|((0[469]-(0[1-9]|[12][0-9]|30))|(11-(0[1-9]|[12][0-9]|30)))|(02-(0[1-9]|1[0-9]|2[0-9])))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])[\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="WeekDayTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: -Www-DThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])Z"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T([0-1][0-9]|2[0-4])([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T([0-1][0-9]|2[0-4])([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearDayTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-DDDThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="([13579][26][02468][048]|[13579][01345789](0)[48]|[13579][01345789][2468][048]|[02468][048][02468][048]|[02468][1235679](0)[48]|[02468][1235679][2468][048]|[0-9][0-9][13579][26])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+			<xsd:pattern value="([13579][26][02468][1235679]|[13579][01345789](0)[01235679]|[13579][01345789][2468][1235679]|[02468][048][02468][1235679]|[02468][1235679](0)[01235679]|[02468][1235679][2468][1235679]|[0-9][0-9][13579][01345789])-((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-5]))T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourMinuteType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourMinuteUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mmZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourMinuteUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mm+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9])|(24:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThhZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayHourUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T([0-1][0-9]|2[0-4])[\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayTimeType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mm:ss</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayTimeUTCType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mm:ssZ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))Z"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="YearWeekDayTimeUTCOffsetType">
+		<xsd:annotation>
+			<xsd:documentation>ISO 8601 format: YYYY-Www-DThh:mm:ss+hh:mm</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]{4}-W(0[1-9]|[1-4][0-9]|5[0123])-[1-7]T((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](|(\.[0-9]+)))|(24:00:00))([\+|\-]([0-1][0-9]|2[0-3]):[0-5][0-9])"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
