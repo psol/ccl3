@@ -7,13 +7,13 @@
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: December 21, 2012</sch:p>
+   <sch:p>Version: January 21, 2012</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
    <sch:pattern abstract="true" id="den">
       <sch:title>Dictionary Entry Name</sch:title>
-      <sch:p>Rules: 0043-0002-000D-0027-0004-000B-0006-000C-0034-0009-0043-003B-0003-003E</sch:p>
+      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S03A-S03B</sch:p>
 
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>
@@ -21,7 +21,6 @@
          <sch:let name="regex1" value="if (string-length ($context) eq 0) then '^[a-z \.\-]*$' else '^[a-z _\.\-]*$'"/>
          <sch:assert test="matches (ccts:DictionaryEntryName, $regex1,'i')">Dictionary Entry Name shall only use English/ASCII alphabetic characters, the dot, space (and hyphen by exception)</sch:assert>
          <sch:report test="matches (ccts:DictionaryEntryName, '\-')" role="warning">Dictionary Entry Name shall limit the use of hyphen</sch:report>
-
          <!-- DEN can have 2, 3 or 4 components (including the context) -->
          <!-- this tests which components are needed and whether they are available -->
          <!-- context is handled differently because it is optional, so even when a context is given as a parameter
@@ -34,9 +33,9 @@
          <sch:assert test="ccts:DictionaryEntryName = $target">DEN shall be <sch:value-of select="$target"/></sch:assert>
 
          <sch:assert test="every $o in $like satisfies not ($o/ccts:DictionaryEntryName) or ($o/ccts:DictionaryEntryName ne ccts:DictionaryEntryName)">Dictionary Entry Name shall be unique</sch:assert>
-
          <sch:let name="words" value="tokenize (ccts:DictionaryEntryName, '[\. ]+')"/>
          <sch:assert test="every $i in 1 to (count($words) - 1) satisfies $words[$i] != $words[$i + 1]">Dictionary Entry Name shall not include consecutive identical words or terms</sch:assert>
+
          <sch:assert test="every $word in $words satisfies matches ($word, '^\p{Lu}.*$')">Each word in a Dictionary Entry Name shall start with a capital letter.</sch:assert>
 
          <!-- mostly this should have been controlled by the above rules on DEN formation but you can never ignore the fact that, say, an object class would contain a dot -->
@@ -144,10 +143,10 @@
       <sch:param name="type"     value="ccts:RepresentationTerm"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity"/>
    </sch:pattern>
-
+   
    <sch:pattern abstract="true" id="parent-child">
       <sch:title>Coherence of classes/types between parents and children</sch:title>
-      <sch:p>Rules: 003B</sch:p>
+      <sch:p>Rules: S03B</sch:p>
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="$class = $parentclass"><sch:value-of select="name ($class)"/> shall be <sch:value-of select="$parentclass"/></sch:assert>
       </sch:rule>
@@ -176,14 +175,25 @@
    </sch:pattern>
 
    <sch:pattern>
+      <sch:title>Based on</sch:title>
+      <sch:p>S037, S038, S039</sch:p>
+      <sch:let name="cc" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent"/>
+      <sch:rule context="ccts:AggregateBusinessInformationEntity">
+         <sch:let name="acc-uid" value="ccts:BasedOnAggregateCoreComponentUID"/>
+         <sch:assert test="ccts:BasedOnAggregateCoreComponentUID and (some $uid in $cc/ccts:AggregateCoreComponent/ccts:UniqueID satisfies $acc-uid = $uid)">An ABIE shall be based on an ACC.</sch:assert>
+         <sch:assert test="ccts:ObjectClassTerm = $cc/ccts:AggregateCoreComponent [ccts:UniqueID = $acc-uid]/ccts:ObjectClassTerm">The object class term should have been <sch:value-of select="$cc/ccts:AggregateCoreComponent[ccts:UniqueID = $acc-uid]/ccts:ObjectClassTerm"/>.</sch:assert>
+         <!-- this is a very limited implementation of rule S039, need more work -->
+         <sch:assert test="count (ccts:BasicBusinessInformationEntity) le count($cc/ccts:AggregateCoreComponent [ccts:UniqueID = $acc-uid]/ccts:BasicBusinessInformationEntity)">An ABIE shall be a restriction of its parent ACC or ABIE.</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern>
       <sch:title>Uniqueness</sch:title>
       <!-- I choose the most efficient implementation (but also the one that is hardest to track), because I expect this will be a very few violations -->
       <!-- BTW turn these into report, make more sense for the error message -->
       <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition">
          <sch:let name="definitions" value="//ccts:Definition[string-length (.) gt 0]"/>
-         <!--
          <sch:assert test="count($definitions) = count (distinct-values($definitions))">(000E) There are <sch:value-of select="count($definitions) - count (distinct-values($definitions))"/> duplicate definitions (the Schematron has another, less efficient, rule that you can uncomment to help pinpoint this error)</sch:assert>
-         -->
          <sch:let name="uids" value="//ccts:UniqueID"/>
          <sch:assert test="count ($uids) = count (distinct-values($uids))">(0023) There are <sch:value-of select="count ($uids) - count (distinct-values($uids))"/> duplicate object IDs</sch:assert>
          <sch:let name="versionids" value="//ccts:VersionID"/>
@@ -192,9 +202,11 @@
          <sch:assert test="count ($dtts) = count (distinct-values($dtts))">(0039) There are <sch:value-of select="count ($dtts) - count (distinct-values($dtts))"/> duplicate Data Type Terms</sch:assert>
       </sch:rule>
       <!-- uncomment the following rule if you need to pinpoint the duplicate definition violation -->
+      <!--
       <sch:rule context="ccts:Definition [string-length (.) gt 0]">
          <sch:assert test="every $definition in preceding::ccts:Definition satisfies $definition != .">(000E) Each object shall have its own unique definition</sch:assert>
       </sch:rule>
+      -->
    </sch:pattern>
 
    <sch:pattern>
@@ -309,7 +321,7 @@
       </sch:rule>
    </sch:pattern>
 
-   <!-- there's a more efficient version of   rule 0002:
+   <!-- there's a more efficient version of   rule S002:
            count(//ccts:DictionaryEntryName) = count(distinct-values(//ccts:DictionaryEntryName))
         but it reports the violation but not where it occured so it's not very helpful
         the version I have used here compares item by item but limits the comparisons to children of the same parent

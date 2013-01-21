@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ccl3-merge.xsl"?>
+<lst:CoreComponentLibraryFileList xmlns:lst="http://marchal.com/2013/file/list">
+   <lst:Input>
+      <lst:BaseFolder>../..</lst:BaseFolder>
+      <lst:CoreComponentFile>XML_for_CCTS_Core_Components_20130121_135554.xml</lst:CoreComponentFile>
+      <lst:BusinessInformationEntityFile>XML_for_CCTS_Business_Information_Entities_20130121_103749.xml</lst:BusinessInformationEntityFile>
+      <lst:DataTypeFile>XML_for_CCTS_Core_Components_20130121_135554.xml</lst:DataTypeFile>
+   </lst:Input>
+   <lst:Output>
+      <lst:SchemaLocation>../uncefact/data/cclrepository/0/draft/XMLForCCTS_odp6.xsd</lst:SchemaLocation>
+   </lst:Output>
+</lst:CoreComponentLibraryFileList>
