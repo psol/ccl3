@@ -13,7 +13,7 @@
 
    <sch:pattern abstract="true" id="den">
       <sch:title>Dictionary Entry Name</sch:title>
-      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S03A-S03B</sch:p>
+      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05E-S062, S067, S06C, S070, S074</sch:p>
 
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>
@@ -53,6 +53,8 @@
          <sch:assert test="ccts:DictionaryEntryName/text()">Dictionary Entry Name is required for <sch:name/></sch:assert>
       </sch:rule>
    </sch:pattern>
+
+<!--
 
    <sch:pattern is-a="den" id="acc-den">
       <sch:param name="object"   value="ccts:AggregateCoreComponent"/>
@@ -144,6 +146,15 @@
       <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity"/>
    </sch:pattern>
    
+   <sch:pattern is-a="den" id="asbie-den">
+      <sch:param name="object"   value="ccts:AssociationBusinessInformationEntity"/>
+      <sch:param name="class"    value="ccts:ObjectClassTerm"/>
+      <sch:param name="context"  value="ccts:ObjectClassTermQualifier"/>
+      <sch:param name="property" value="ccts:PropertyTerm"/>
+      <sch:param name="type"     value="ccts:AssociatedObjectClassTerm"/>
+      <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity | preceding-sibling::ccts:AssociationBusinessInformationEntity"/>
+   </sch:pattern>
+
    <sch:pattern abstract="true" id="parent-child">
       <sch:title>Coherence of classes/types between parents and children</sch:title>
       <sch:p>Rules: S03B</sch:p>
@@ -173,65 +184,169 @@
          <sch:assert test="ccts:DataTypeTerm = parent::ccts:CoreDataType/ccts:DataTypeTerm">Data Type Term shall be <sch:value-of select="parent::ccts:CoreDataType/ccts:DataTypeTerm"/></sch:assert>
       </sch:rule>
    </sch:pattern>
-
+-->
+   
    <sch:pattern>
       <sch:title>Based on</sch:title>
-      <sch:p>S037, S038, S039</sch:p>
+      <sch:p>S05C, S05E, S062, S066, S06D-S06E</sch:p>
       <sch:let name="cc" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent"/>
       <sch:rule context="ccts:AggregateBusinessInformationEntity">
          <sch:let name="acc-uid" value="ccts:BasedOnAggregateCoreComponentUID"/>
-         <sch:assert test="ccts:BasedOnAggregateCoreComponentUID and (some $uid in $cc/ccts:AggregateCoreComponent/ccts:UniqueID satisfies $acc-uid = $uid)">An ABIE shall be based on an ACC.</sch:assert>
-         <sch:assert test="ccts:ObjectClassTerm = $cc/ccts:AggregateCoreComponent [ccts:UniqueID = $acc-uid]/ccts:ObjectClassTerm">The object class term should have been <sch:value-of select="$cc/ccts:AggregateCoreComponent[ccts:UniqueID = $acc-uid]/ccts:ObjectClassTerm"/>.</sch:assert>
-         <!-- this is a very limited implementation of rule S039, need more work -->
-         <sch:assert test="count (ccts:BasicBusinessInformationEntity) le count($cc/ccts:AggregateCoreComponent [ccts:UniqueID = $acc-uid]/ccts:BasicBusinessInformationEntity)">An ABIE shall be a restriction of its parent ACC or ABIE.</sch:assert>
+         <sch:let name="basis-acc" value="$cc/ccts:AggregateCoreComponent[ccts:UniqueID = $acc-uid]"/>
+         <sch:assert test="ccts:BasedOnAggregateCoreComponentUID and count ($basis-acc) eq 1">An ABIE shall be based on an ACC.</sch:assert>
+         <sch:assert test="ccts:ObjectClassTerm = $basis-acc/ccts:ObjectClassTerm">The object class term should have been <sch:value-of select="$basis-acc/ccts:ObjectClassTerm"/>.</sch:assert>
+         <!-- this is a very limited implementation of rule S05E, but see properties-based-on abstract pattern as well -->
+         <sch:assert test="(count (ccts:BasicBusinessInformationEntity) le count ($basis-acc/ccts:BasicCoreComponent)) and (count (ccts:AssociationBusinessInformationEntity) le count ($basis-acc/ccts:AssociationCoreComponent))">An ABIE shall be a restriction of its parent ACC or ABIE.</sch:assert>
+      </sch:rule>
+      <!-- FIXME: following is a quick cut/paste from above, deleted one rule... need to turn these 2 patterns in an abstract pattern and create test data for BBIE -->
+      <sch:rule context="ccts:BasicBusinessInformationEntity">
+         <sch:let name="bcc-uid" value="ccts:BasedOnBasicCoreComponentUID"/>
+         <sch:let name="basis-bcc" value="$cc/ccts:BasicCoreComponent[ccts:UniqueID = $bcc-uid]"/>
+         <sch:assert test="ccts:BasedOnBasicCoreComponentUID and count ($basis-bcc) eq 1">An BBIE shall be based on an BCC.</sch:assert>
+         <sch:assert test="ccts:ObjectClassTerm = $basis-bcc/ccts:ObjectClassTerm">The object class term should have been <sch:value-of select="$basis-bcc/ccts:ObjectClassTerm"/>.</sch:assert>
       </sch:rule>
    </sch:pattern>
 
+   <sch:pattern abstract="true" id="properties-based-on">
+      <sch:p>S05D, S065, S069, S06B, S06E, S072-S073</sch:p>
+      <sch:rule context="$property">
+         <sch:let name="acc-uid" value="parent::ccts:AggregateBusinessInformationEntity/ccts:BasedOnAggregateCoreComponentUID"/>
+         <sch:let name="basis-uid" value="$based-on-uid"/>
+         <sch:let name="basis-property" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent[ccts:UniqueID = $acc-uid]/$based-on-property[$acc-property-uid = $basis-uid]"/>
+         <sch:assert test="child::$based-on-uid and count ($basis-property) eq 1">The ABIE properties shall be based on the ACC properties.</sch:assert>
+         <sch:let name="min-basis" value="$basis-property/ccts:Cardinality/ccts:MinimumOccurenceValue"/>
+         <sch:let name="max-basis" value="$basis-property/ccts:Cardinality/ccts:MaximumOccurenceValue"/>
+         <sch:assert test="number (ccts:Cardinality/ccts:MinimumOccurenceValue) ge number ($min-basis)">The BIE or AsBIE minimal cardinality shall never be an extension of the BCC or AsCC it is based on</sch:assert>
+         <sch:assert test="$max-basis = 'unbounded' or number (ccts:Cardinality/ccts:MaximumOccurenceValue) le number ($max-basis)">The BIE or AsBIE maximal cardinality shall never be an extension of the BCC or AsCC it is based on</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern is-a="properties-based-on" id="bbie-property">
+      <sch:param name="property"          value="ccts:BasicBusinessInformationEntity"/>
+      <sch:param name="based-on-property" value="ccts:BasicCoreComponent"/>
+      <sch:param name="based-on-uid"      value="ccts:BasedOnBasicCoreComponentUID"/>
+      <sch:param name="acc-property-uid"  value="ccts:BasicCoreComponentPropertyUID"/>
+   </sch:pattern>
+
+   <sch:pattern is-a="properties-based-on" id="asbie-property">
+      <sch:param name="property"          value="ccts:AssociationBusinessInformationEntity"/>
+      <sch:param name="based-on-property" value="ccts:AssociationCoreComponent"/>
+      <sch:param name="based-on-uid"      value="ccts:BasedOnAssociatedCoreComponentUID"/>
+      <sch:param name="acc-property-uid"  value="ccts:AssociationCoreComponentPropertyUID"/>
+   </sch:pattern>
+
+   <sch:pattern abstract="true" id="definition-based-on">
+      <sch:title>Definition based on</sch:title>
+      <sch:p>S063, S075</sch:p>
+      <!-- need separate patterns to based-on because a pattern only applies the first rule -->
+      <sch:rule context="$xbie [count (ccts:ObjectClassTermQualifier) le 0]">
+         <sch:let name="cc-uid" value="ccts:BasedOnAggregateCoreComponentUID"/>
+         <sch:let name="based-on-definition" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/$xcc[ccts:UniqueID = $cc-uid]/ccts:Definition"/>
+         <sch:assert test="normalize-space (ccts:Definition) = normalize-space ($based-on-definition)">A BBIE or AsBIE with an unqualified object class shall have the same definition as the ACC or BCC it is based on ''<sch:value-of select="$xcc-uid"/>'' -- <sch:value-of select="ccts:Definition"/>.</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern is-a="definition-based-on" id="abie-definition">
+      <sch:param name="xbie"           value="ccts:AggregateBusinessInformationEntity"/>
+      <sch:param name="xcc"            value="ccts:AggregateCoreComponent"/>
+      <sch:param name="based-on-uid"   value="ccts:BasedOnAggregateCoreComponentUID"/>
+   </sch:pattern>
+
+   <sch:pattern is-a="definition-based-on" id="bbie-definition">
+      <sch:param name="xbie"           value="ccts:BasicBusinessInformationEntity"/>
+      <sch:param name="xcc"            value="ccts:AggregateCoreComponent/ccts:BasicCoreComponent"/>
+      <sch:param name="based-on-uid"   value="ccts:BasedOnBasicCoreComponentUID"/>
+   </sch:pattern>
+
+   <sch:pattern abstract="true" id="bie-properties">
+      <sch:rule context="$xbie">
+         <sch:let name="bie-uid" value="$uid"/>
+         <sch:let name="bie-property" value="parent::ccts:AggregateBusinessInformationEntity/parent::ccts:Package/parent::ccts:BusinessInformationEntity/ccts:BusinessProperty/$xprop [ccts:UniqueID = $bie-uid]"/>
+         <sch:assert test="count ($bie-property) eq 1">A BBIE or an AsBIE property shall be defined for each BBIE and AsBIE.</sch:assert>
+      </sch:rule>
+      <sch:rule context="$xprop">
+         <sch:let name="bie-uid" value="ccts:UniqueID"/>
+         <sch:let name="bie-property" value="parent::ccts:BusinessProperty/parent::ccts:BusinessInformationEntity/ccts:Package/ccts:AggregateBusinessInformationEntity/$xbie [$uid = $bie-uid]"/>
+         <sch:assert test="count ($bie-property) eq 1">A BBIE or an AsBIE property is defined but not used in a BBIE or an AsBIE.</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern is-a="bie-properties" id="asbie-properties">
+      <sch:param name="xbie"           value="ccts:AssociationBusinessInformationEntity"/>
+      <sch:param name="xprop"          value="ccts:AssociationBusinessInformationEntityProperty"/>
+      <sch:param name="uid"            value="ccts:AssociationBusinessInformationEntityPropertyUID"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="bie-properties" id="bbie-properties">
+      <sch:param name="xbie"           value="ccts:BasicBusinessInformationEntity"/>
+      <sch:param name="xprop"          value="ccts:BasicBusinessInformationEntityProperty"/>
+      <sch:param name="uid"            value="ccts:BasicBusinessInformationEntityPropertyUID"/>
+   </sch:pattern>
+
+   <!-- we'll probably need to turn the following two into a pattern to support BIE and AsBIE at one point or another -->
+   <sch:rule context="ccts:AssociationBusinessInformationEntity">
+      <sch:let name="asbie-uid" value="ccts:AssociationBusinessInformationEntityPropertyUID"/>
+      <sch:let name="asbie-property" value="parent::ccts:AggregateBusinessInformationEntity/parent::ccts:Package/parent::ccts:BusinessInformationEntity/ccts:BusinessProperty/ccts:AssociationBusinessInformationEntityProperty [ccts:UniqueID = $asbie-uid]"/>
+      <sch:assert test="count ($asbie-property) eq 1">An AsBIE property shall be defined for each AsBIE.</sch:assert>
+   </sch:rule>
+   <sch:rule context="ccts:AssociationBusinessInformationEntityProperty">
+      <sch:let name="asbie-uid" value="ccts:UniqueID"/>
+      <sch:let name="asbie-property" value="parent::ccts:BusinessProperty/parent::ccts:BusinessInformationEntity/ccts:Package/ccts:AggregateBusinessInformationEntity/ccts:AssociationBusinessInformationEntity [ccts:AssociationBusinessInformationEntityPropertyUID = $asbie-uid]"/>
+      <sch:assert test="count ($asbie-property) eq 1">An AsBIE property is defined but not used in an AsBIE.</sch:assert>
+   </sch:rule>
+   
+
    <sch:pattern>
       <sch:title>Uniqueness</sch:title>
-      <!-- I choose the most efficient implementation (but also the one that is hardest to track), because I expect this will be a very few violations -->
-      <!-- BTW turn these into report, make more sense for the error message -->
+      <!-- I choose the most efficient implementation (but also the one that is hardest to track), because I expect this will be very few violations -->
+      <!-- BTW turn these into sch:report, make more sense for the error message -->
       <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition">
          <sch:let name="definitions" value="//ccts:Definition[string-length (.) gt 0]"/>
-         <sch:assert test="count($definitions) = count (distinct-values($definitions))">(000E) There are <sch:value-of select="count($definitions) - count (distinct-values($definitions))"/> duplicate definitions (the Schematron has another, less efficient, rule that you can uncomment to help pinpoint this error)</sch:assert>
+         <sch:assert test="count($definitions) = count (distinct-values($definitions))">(S00E) There are <sch:value-of select="count($definitions) - count (distinct-values($definitions))"/> duplicate definitions (the Schematron has another, less efficient, rule that you can uncomment to help pinpoint this error)</sch:assert>
          <sch:let name="uids" value="//ccts:UniqueID"/>
-         <sch:assert test="count ($uids) = count (distinct-values($uids))">(0023) There are <sch:value-of select="count ($uids) - count (distinct-values($uids))"/> duplicate object IDs</sch:assert>
+         <sch:assert test="count ($uids) = count (distinct-values($uids))">(S023) There are <sch:value-of select="count ($uids) - count (distinct-values($uids))"/> duplicate object IDs</sch:assert>
          <sch:let name="versionids" value="//ccts:VersionID"/>
-         <sch:assert test="count ($versionids) = count (distinct-values($versionids))">(0024) There are <sch:value-of select="count ($versionids) - count (distinct-values($versionids))"/> duplicate version IDs</sch:assert>
+         <sch:assert test="count ($versionids) = count (distinct-values($versionids))">(S024) There are <sch:value-of select="count ($versionids) - count (distinct-values($versionids))"/> duplicate version IDs</sch:assert>
          <sch:let name="dtts" value="ccts:DataType/ccts:DataTypeTerm"/>
-         <sch:assert test="count ($dtts) = count (distinct-values($dtts))">(0039) There are <sch:value-of select="count ($dtts) - count (distinct-values($dtts))"/> duplicate Data Type Terms</sch:assert>
+         <sch:assert test="count ($dtts) = count (distinct-values($dtts))">(S039) There are <sch:value-of select="count ($dtts) - count (distinct-values($dtts))"/> duplicate Data Type Terms</sch:assert>
       </sch:rule>
       <!-- uncomment the following rule if you need to pinpoint the duplicate definition violation -->
       <!--
       <sch:rule context="ccts:Definition [string-length (.) gt 0]">
-         <sch:assert test="every $definition in preceding::ccts:Definition satisfies $definition != .">(000E) Each object shall have its own unique definition</sch:assert>
+         <sch:assert test="every $definition in preceding::ccts:Definition satisfies $definition != .">(S00E) Each object shall have its own unique definition</sch:assert>
       </sch:rule>
       -->
    </sch:pattern>
 
+<!--
+
    <sch:pattern>
       <sch:title>Object Completeness</sch:title>
+      <sch:p>S023-S024, S027, S064, S066, S06D</sch:p>
       <sch:rule context="ccts:AggregateCoreComponent | ccts:AssociationCoreComponentProperty | ccts:BasicCoreComponentProperty | ccts:DataType/ccts:CoreDataType | ccts:CoreDataTypeContentComponent | ccts:CoreDataTypeSupplementaryComponent">
-         <sch:assert test="(ccts:UniqueID/text() and ccts:VersionID/text()) or (ccts:DictionaryEntryName eq '')">// -- //(0023-0024) Each object shall have unique ID and version ID</sch:assert>
-         <sch:assert test="((ccts:DictionaryEntryName ne '') and (ccts:Definition ne '')) or (ccts:DictionaryEntryName eq '')">(0027) Each object shall have a common information class</sch:assert>
+         <sch:assert test="(ccts:UniqueID/text() and ccts:VersionID/text()) or (ccts:DictionaryEntryName eq '')">Each object shall have unique ID and version ID</sch:assert>
+         <sch:assert test="((ccts:DictionaryEntryName ne '') and (ccts:Definition ne '')) or (ccts:DictionaryEntryName eq '')">Each object shall have a common information class</sch:assert>
+      </sch:rule>
+      <sch:rule context="ccts:AggregateBusinessInformationEntity">
+         <sch:assert test="count (ccts:BasicBusinessInformationEntity | ccts:AssociationBusinessInformationEntity) ge 1">An ABIE shall contain at least one property.</sch:assert>
       </sch:rule>
    </sch:pattern>
 
    <sch:pattern>
       <sch:title>Definition Validation Rules</sch:title>
       <sch:rule context="ccts:Definition">
-         <sch:assert test="(string-length (normalize-space (.)) gt 0) or (string-length (../ccts:DictionaryEntryName) eq 0)">(000E) Each object shall have a semantic definition</sch:assert>
+         <sch:assert test="(string-length (normalize-space (.)) gt 0) or (string-length (../ccts:DictionaryEntryName) eq 0)">(S00E) Each object shall have a semantic definition</sch:assert>
          <sch:let name="sentences" value="tokenize (., '\.')"/>
          <sch:assert test="every $sentence in $sentences satisfies count (tokenize ($sentence, '\p{Zs}')) lt 30"
             see="http://strainindex.wordpress.com/2008/07/28/the-average-sentence-length/"
-            role="warning">(0010) Sentences in definition shall be short.</sch:assert>
+            role="warning">(S010) Sentences in definition shall be short.</sch:assert>
       </sch:rule>
    </sch:pattern>
 
    <sch:pattern>
       <sch:title>Cardinality</sch:title>
-      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociationCoreComponent">
-         <sch:assert test="(child::ccts:Cardinality/ccts:MinimumOccurenceValue and child::ccts:Cardinality/ccts:MaximumOccurenceValue) or (string-length(ccts:DictionaryEntryName) eq 0)">(0029) Object shall have a cardinality</sch:assert>
+      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociationCoreComponent | ccts:CoreDataTypeSupplementaryComponent">
+         <sch:assert test="(child::ccts:Cardinality/ccts:MinimumOccurenceValue and child::ccts:Cardinality/ccts:MaximumOccurenceValue) or (string-length(ccts:DictionaryEntryName) eq 0)">(S029-S05B) Object shall have a cardinality</sch:assert>
       </sch:rule>
       <sch:rule context="ccts:Cardinality">
          <sch:let name="max" value="number (ccts:MaximumOccurenceValue)"/>
@@ -288,7 +403,8 @@
          <sch:assert test="count (child::ccts:CoreDataTypeContentComponent) eq 1">(003F) A data type shall have one and only one content component</sch:assert>
       </sch:rule>
    </sch:pattern>
-
+-->
+   
    <sch:pattern>
       <sch:title>Core Data Type Content and Component</sch:title>
       <sch:rule context="ccts:CoreDataTypeContentComponent [string-length (ccts:DictionaryEntryName) gt 0]">
