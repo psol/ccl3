@@ -54,8 +54,6 @@
       </sch:rule>
    </sch:pattern>
 
-<!--
-
    <sch:pattern is-a="den" id="acc-den">
       <sch:param name="object"   value="ccts:AggregateCoreComponent"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
@@ -184,7 +182,6 @@
          <sch:assert test="ccts:DataTypeTerm = parent::ccts:CoreDataType/ccts:DataTypeTerm">Data Type Term shall be <sch:value-of select="parent::ccts:CoreDataType/ccts:DataTypeTerm"/></sch:assert>
       </sch:rule>
    </sch:pattern>
--->
    
    <sch:pattern>
       <sch:title>Based on</sch:title>
@@ -294,7 +291,6 @@
       <sch:let name="asbie-property" value="parent::ccts:BusinessProperty/parent::ccts:BusinessInformationEntity/ccts:Package/ccts:AggregateBusinessInformationEntity/ccts:AssociationBusinessInformationEntity [ccts:AssociationBusinessInformationEntityPropertyUID = $asbie-uid]"/>
       <sch:assert test="count ($asbie-property) eq 1">An AsBIE property is defined but not used in an AsBIE.</sch:assert>
    </sch:rule>
-   
 
    <sch:pattern>
       <sch:title>Uniqueness</sch:title>
@@ -317,8 +313,6 @@
       </sch:rule>
       -->
    </sch:pattern>
-
-<!--
 
    <sch:pattern>
       <sch:title>Object Completeness</sch:title>
@@ -403,7 +397,6 @@
          <sch:assert test="count (child::ccts:CoreDataTypeContentComponent) eq 1">(003F) A data type shall have one and only one content component</sch:assert>
       </sch:rule>
    </sch:pattern>
--->
    
    <sch:pattern>
       <sch:title>Core Data Type Content and Component</sch:title>
