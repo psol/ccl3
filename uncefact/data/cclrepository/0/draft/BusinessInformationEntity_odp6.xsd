@@ -616,7 +616,7 @@
 		<xsd:sequence>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="Constraint" type="TextType_568D06"/>
-			<xsd:element name="ContraintType" type="CodeType_ED40BA"/>
+			<xsd:element name="ConstraintType" type="CodeType_ED40BA"/>
 			<xsd:element name="ConditionType" type="CodeType_ED40BA"/>
 			<xsd:element ref="IdentificationMetadata" minOccurs="0"/>
 		</xsd:sequence>
