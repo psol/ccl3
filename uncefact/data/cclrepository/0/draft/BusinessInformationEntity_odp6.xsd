@@ -354,12 +354,8 @@
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="DataTypeQualifier" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="DataTypeTerm" type="TextType_568D06"/>
-			<xsd:element name="PropertyTerm" type="TextType_568D06"/>
 			<xsd:element name="RepresentationTerm" type="TextType_568D06"/>
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="Cardinality" type="CardinalityType" minOccurs="0"/>
-			<xsd:element name="CoreDataType" type="TextType_568D06"/>
-			<xsd:element name="CoreDataTypeUID" type="IDType_655749"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="VersionID" type="IDType_655749"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
@@ -376,7 +372,6 @@
 			<xsd:element name="PropertyTerm" type="TextType_568D06"/>
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="VersionID" type="IDType_655749"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="BusinessValueDomain" maxOccurs="unbounded"/>
 		</xsd:sequence>
@@ -387,9 +382,11 @@
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="DataTypeTerm" type="TextType_568D06"/>
 			<xsd:element name="PropertyTerm" type="TextType_568D06"/>
+			<xsd:element name="RepresentationTerm" type="TextType_568D06"/>
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="Cardinality"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="VersionID" type="IDType_655749"/>
+			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="BusinessValueDomain" maxOccurs="unbounded"/>
 		</xsd:sequence>
