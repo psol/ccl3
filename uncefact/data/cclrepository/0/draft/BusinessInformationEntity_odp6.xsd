@@ -292,6 +292,7 @@
 			<xsd:element name="DataTypeQualifier" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="BusinessDataType" type="TextType_568D06"/>
 			<xsd:element name="BusinessDataTypeUID" type="IDType_655749"/>
+			<xsd:element name="BusinessValueDomainUID" type="IDType_655749"/>
 			<xsd:element name="BusinessContextUID" type="IDType_655749"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
@@ -325,6 +326,7 @@
 			<xsd:element ref="Cardinality"/>
 			<xsd:element name="CoreDataType" type="TextType_568D06"/>
 			<xsd:element name="CoreDataTypeUID" type="IDType_655749"/>
+			<xsd:element name="CoreValueDomainUID" type="IDType_655749"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
@@ -485,7 +487,6 @@
 			<xsd:element name="PropertyTerm" type="TextType_568D06"/>
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="VersionID" type="IDType_655749"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="CoreValueDomain" maxOccurs="unbounded"/>
 		</xsd:sequence>
@@ -500,7 +501,7 @@
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="Cardinality"/>
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
-			<xsd:element name="VersionID" type="IDType_655749"/>
+			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="CoreValueDomain" maxOccurs="unbounded"/>
 		</xsd:sequence>
@@ -512,11 +513,12 @@
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="DataTypeTerm" type="TextType_568D06"/>
 			<xsd:element name="BusinessTerm" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- CHANGE REQUEST TO REMOVE NOT IN META MODEL -->
 			<xsd:element name="UsageRuleID" type="IDType_655749" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="VersionID" type="IDType_655749"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="CoreDataTypeContentComponent"/>
-			<xsd:element ref="CoreDataTypeSupplementaryComponent" maxOccurs="unbounded"/>
+			<xsd:element ref="CoreDataTypeSupplementaryComponent" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="CoreValueDomainType">
@@ -527,7 +529,7 @@
 			<xsd:choice>
 				<xsd:element ref="Primitive" minOccurs="0"/>
 				<xsd:element name="CoreCodeListUID" type="IDType_655749" minOccurs="0"/>
-				<xsd:element name="CodeIdentifierSchemeUID" type="IDType_655749" minOccurs="0"/>
+				<xsd:element name="CoreIdentifierSchemeUID" type="IDType_655749" minOccurs="0"/>
 			</xsd:choice>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -616,7 +618,7 @@
 		<xsd:sequence>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="Constraint" type="TextType_568D06"/>
-			<xsd:element name="ContraintType" type="CodeType_ED40BA"/>
+			<xsd:element name="ConstraintType" type="CodeType_ED40BA"/>
 			<xsd:element name="ConditionType" type="CodeType_ED40BA"/>
 			<xsd:element ref="IdentificationMetadata" minOccurs="0"/>
 		</xsd:sequence>
