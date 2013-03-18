@@ -26,26 +26,26 @@ Every usage rule shall have a condition type.,Usage Rules,"[C29], [C65], [C116],
 "Every usage rule condition type shall be one of pre-condition, postcondition, or invariant.",Usage Rules,"[C30], [C66], [C117], [B42], [B82], [B145], [D32], [D65], [D118], [D143], [D197], [D222], [D256], [D317], [D342], [D404]",X019,,E,Could be done in Schematron (Kevin)
 A usage rule for an object shall have zero or one names that are unique within the group of usage rules of that given object or its aggregate.,Usage Rules,"[C32], [C68], [C119], [B44], [B84], [B147], [D34], [D67], [D120], [D145], [D199], [D224], [D319], [D406]",X020,,E,Could be done in Schematron (Kevin)
 "Each occurrence of a localized metadata class shall contain:
-• Language Code (mandatory): A code which identifies the language being used. Internet Engineering Task Force RFC 3066 of January 2001 shall be used as the authoritative source for code values.
-• Name (optional): The name of the usage rule in a language other than English.
-• Business Term (optional, repetitive): A synonym term in another language under which the usage rule is commonly known and used in a business expression in that language.",Usage rule and value domain localized metadata,"[C35], [C71], [C122], [B47], [B87], [B150], [D37], [D70], [D109], [D123], [D148], [D188], [D202], [D227], [D261], [D308], [D322], [D347], [D395], [D409]",X021,,,No current plans for localized metadata in CEFACT publications.
+ï Language Code (mandatory): A code which identifies the language being used. Internet Engineering Task Force RFC 3066 of January 2001 shall be used as the authoritative source for code values.
+ï Name (optional): The name of the usage rule in a language other than English.
+ï Business Term (optional, repetitive): A synonym term in another language under which the usage rule is commonly known and used in a business expression in that language.",Usage rule and value domain localized metadata,"[C35], [C71], [C122], [B47], [B87], [B150], [D37], [D70], [D109], [D123], [D148], [D188], [D202], [D227], [D261], [D308], [D322], [D347], [D395], [D409]",X021,,,No current plans for localized metadata in CEFACT publications.
 Localized metadata shall be in the language identified by the language and locale code.,Localized metadata,"[C36], [C72], [C123], [B48], [B88], [B151], [D38], [D71], [D110], [D124], [D149], [D189], [D203], [D228], [D262], [D309], [D323], [D348], [D396], [D410]",X022,,,No current plans for localized metadata in CEFACT publications.
 Each object shall have a unique identifier within the library of which it is a part.,"ACCs, ASCC Properties, BCC Properties, ABIEs, ASBIE Properties, BBIE Properties, CDTs, BDTs, Business Context","[C37], [C94], [C150], [B49], [B120], [B190], [D39], [D229], [X2]",S023,,E,
 Each version of an object shall have a unique version identifier within the library of which it is a part.,"ACCs, ASCC Properties, BCC Properties, ABIEs, ASBIE Properties, BBIE Properties, CDTs, BDTs, Business Context","[C38], [C95], [C151], [B50], [B121], [B191], [D40], [D230], [X3]",S024,,E,
 Each object shall have a common information class.,"ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ASBIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Component, BDTs, BDT Content Component, BDT Supplementary Component","[C39], [C76], [C96], [C127], [C152], [B51], [B94], [B122], [B157], [B192], [D41], [D72], [D150], [D231], [D263], [D394]",S025,,E,
 The object's common information class shall conform to all CC common information rules.,"ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties","[C40], [C77], [C97], [C128], [C153]",X026,,,Redundant
 "The common information class shall consist of:
-• DEN (mandatory): The official name of the ACC.
-• Definition (mandatory): The semantic meaning of the ACC.
-• Business Term (optional, repetitive): A synonym term under which the ACC is commonly known and used in business.","ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ASBIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Component, BDTs, BDT Content Component, BDT Supplementary Component","[C41], [C78], [C98], [C129], [C154], [B53], [B96], [B124], [B159], [B194], [D42], [D73], [D151], [D232], [D264], [D350",S025,,E,
+ï DEN (mandatory): The official name of the ACC.
+ï Definition (mandatory): The semantic meaning of the ACC.
+ï Business Term (optional, repetitive): A synonym term under which the ACC is commonly known and used in business.","ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ASBIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Component, BDTs, BDT Content Component, BDT Supplementary Component","[C41], [C78], [C98], [C129], [C154], [B53], [B96], [B124], [B159], [B194], [D42], [D73], [D151], [D232], [D264], [D350",S025,,E,
 "The DEN of an ACC shall consist of a meaningful object class term followed by a dot, a space character, and the term Details.",ACCs,[C43],S026,,E,
 Each ACC definition shall include the object class term.,ACCs,[C45],,3,W,
 "Each occurrence of an object's localized information class shall contain:
-• Language Code (mandatory): A code which identifies the language being used. Tags for the Identification of Languages, Internet Engineering Task Force RFC 3066 of January 2001 shall be used as
-• the authoritative source for code values.
-• DEN (optional): The official name of the object's in a language other than English.
-• Definition (mandatory): The semantic meaning of the object's in a language other than English.
-• Business Term (optional, repetitive): A synonym term in another language under which the object is commonly known and used in a business expression in that language.","ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ABIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Components, BDTs, BDT Content Components, BDT Supplementary Components","[C48], [C85], [C105], [C136], [C162], [B62], [B103], [B132], [B168], [B202], [D49], [D80], [D159], [D239], [D271], [D358]",,3,,
+ï Language Code (mandatory): A code which identifies the language being used. Tags for the Identification of Languages, Internet Engineering Task Force RFC 3066 of January 2001 shall be used as
+ï the authoritative source for code values.
+ï DEN (optional): The official name of the object's in a language other than English.
+ï Definition (mandatory): The semantic meaning of the object's in a language other than English.
+ï Business Term (optional, repetitive): A synonym term in another language under which the object is commonly known and used in a business expression in that language.","ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ABIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Components, BDTs, BDT Content Components, BDT Supplementary Components","[C48], [C85], [C105], [C136], [C162], [B62], [B103], [B132], [B168], [B202], [D49], [D80], [D159], [D239], [D271], [D358]",,3,,
 "Each localized information DEN shall only consist of alphabetic, ideographic characters, plus the dot, the underscore and the space characters unless required by language rules.","ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ABIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Components, BDTs, BDT Content Components, BDT Supplementary Components","[C49], [C86], [C106], [C137], [C163], [B63], [B104], [B133], [B169], [B203], [D50], [D81], [D160], [D240], [D272], [D359]",,3,,
 Each object's localized information definition shall adhere to all appropriate definition rules other than the requirement to be in the English language.,"ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ABIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Components, BDTs, BDT Content Components, BDT Supplementary Components","[C50], [C87], [C107], [C138], [C164], [B64], [B105], [B134], [B170], [B204], [D51], [D82], [D161], [D241], [D273], [D360]",,3,,
 Localized information DENs and definitions shall be in the language identified by the language and locale code.,"ACCs, ASCCs, ASCC Properties, BCCs, BCC Properties, ABIEs, ASBIEs, ABIE Properties, BBIEs, BBIE Properties, CDTs, CDT Content Components, CDT Supplementary Components, BDTs, BDT Content Components, BDT Supplementary Components","[C51], [C88], [C108], [C139], [C165], [B65], [B106], [B135], [B171], [B205], [D52], [D83], [D162], [D242], [D274], [D361]",,3,,
@@ -54,16 +54,16 @@ An ACC shall contain at least one ACC property.,ACCs,[C53],,3,,
 An ACC property shall be either a BCC or an ASCC.,ACCs,[C54],,3,,
 "Within an ACC, all embedded BCCs and ASCCs shall be related to the concept of the aggregate.",ACCs,[C55],,3,,
 An ASCC DEN and a BCC DEN shall never be identical when used in an ACC.,ACCs,[C56],S027,1,E,
-An ACC shall never contain – directly or at any nested level – a mandatory ASCC whose associated ACC is the same as the top level ACC.,ACCs,[C57],S028,1,E,
+An ACC shall never contain ñ directly or at any nested level ñ a mandatory ASCC whose associated ACC is the same as the top level ACC.,ACCs,[C57],S028,1,E,
 An ASCC shall have an UML association AggregationKind value of shared.,ASCCs,[C58],,2,,
 "ASCC usage rules shall not replicate ACC, BCC, or CDT usage rules.",ASCCs,[C60],,2,,
 An ASCC usage rule shall have zero or one identification metadata classes.,ASCCs,[C67],,2,,
 "Each ASCC, BCC, ASBIE, or BBIE shall have a cardinality that consists of a set of values consisting of a minimum occurrence and a maximum occurrence.","ASCCs, BCCs, ASBIEs, BBIEs","[C73], [C124], [B89], [B152]",S029,1,E,
-"Cardinality values shall be non-negative integers of zero or greater, or – only in the case of maximum occurrence – the token unbounded if no limit applies.","ASCCs, BCCs, ASBIEs, BBIEs","[C74], [C125], [B90], [B153]",S02A,1,E,
+"Cardinality values shall be non-negative integers of zero or greater, or ñ only in the case of maximum occurrence ñ the token unbounded if no limit applies.","ASCCs, BCCs, ASBIEs, BBIEs","[C74], [C125], [B90], [B153]",S02A,1,E,
 "Each ASCC, BCC, ASBIE, or BBIE shall be assigned a unique sequencing key within the ACC or ABIE of which it is a part.","ASCCs, BCCs, ASBIEs, BBIEs","[C75], [C126], [B92], [B155]",S02B,1,E,
 "The DEN of an ASCC shall consist of the following components in the specified order:
-• The object class term of the associating ACC, followed by a dot and space character.
-• The DEN of the included ASCC property.",ASCCs,[C80],S02C,1,E,
+ï The object class term of the associating ACC, followed by a dot and space character.
+ï The DEN of the included ASCC property.",ASCCs,[C80],S02C,1,E,
 "The definition of an ASCC shall include the object class term of the associating ACC, and the definition of the ASCC property the ASCC includes.",ASCCs,[C82],S003,3W,,
 An ASCC property shall be defined for each ASCC.,"ASCCs, ASCC Properties",[C90],S02D,1,E,
 "Each ASCC property, BCC property, ASBIE property, or BBIE property shall have a property term.","ASCC Properties, BCC Properties, ASBIE Properties, BBIE Properties","[C91], [C143], [B111], [B175]",S02E,1,E,
@@ -72,8 +72,8 @@ A multi-worded property term of a property shall have a unique semantic meaning 
 The definition of an ASCC property shall include the object class term of the associated ACC and the property term that expresses the nature of the association.,ASCC Properties,[C102],,2W,,
 "BCC usage rules shall not replicate ACC, ASCC, or CDT usage rules.",BCCs,[C111],,2,,
 "The DEN of a BCC shall consist of the following parts in the order specified:
-• the object class term of the owning ACC, followed by a dot and space character.
-• the DEN of the included BCC property.",BCCs,[C131],S030,1,E,
+ï the object class term of the owning ACC, followed by a dot and space character.
+ï the DEN of the included BCC property.",BCCs,[C131],S030,1,E,
 "The definition of a BCC shall include the object class term of the ACC to which it belongs, and the definition of the included BCC property.",BCCs,[C133],S003,2W,,
 A BCC property shall be defined for each BCC.,"BCCs, BCC Properties",[C141],S031,1,E,
 A BCC property shall only use an approved CDT in the UN/CEFACT Data Type Catalogue.,BCC Properties,[C142],S032,1,E,
@@ -107,14 +107,14 @@ An ABIE property shall be based on a CC property of the corresponding ACC.,ABIEs
 An ABIE property shall either be a BBIE or an ASBIE.,ABIEs,[B69],S066,1,E,
 "Within an ABIE, all embedded BBIEs and ASBIEs shall be related to the concept of the aggregate.",ABIEs,[B70],,3,,
 An ASBIE DEN and a BBIE DEN shall never be identical when used in an ABIE.,ABIEs,[B71],S067,1,E,
-An ABIE shall never contain – directly or at any nested level – a mandatory ASBIE whose associated ABIE is the same as the top level ABIE.,ABIEs,[B72],X068,1,E,
+An ABIE shall never contain ñ directly or at any nested level ñ a mandatory ASBIE whose associated ABIE is the same as the top level ABIE.,ABIEs,[B72],X068,1,E,
 An ASBIE shall be based on an ASCC.,ASBIEs,[B73],S069,1,E,
 An ASBIE shall have an UML association AggregationKind=shared or AggregationKind=composite.,ASBIEs,[B74],X06A,1,E,
 "ASBIE usage rules shall not replicate ABIE, BBIE, or BDT usage rules.",ASBIEs,[B76],,2,,
 ASBIE cardinality values shall never be an extension of its basis ASCC cardinality values.,ASBIEs,[B91],S06B,1,E,
 "The DEN of an ASBIE shall consist of the following components in the specified order:
-• the object class term and qualifiers, if any, of the associating BIE,
-• the DEN of the included ASBIE property.",ASBIEs,[B98],S06C,1,E,
+ï the object class term and qualifiers, if any, of the associating BIE,
+ï the DEN of the included ASBIE property.",ASBIEs,[B98],S06C,1,E,
 "The definition of an ASBIE shall include the object class term and object class qualifier terms, if any, of the associating ABIE, and the definition of the ASBIE property the ASBIE includes.",ASBIEs,[B100],,2W,,
 An ASBIE property shall be defined for each ASBIE.,ASBIE Properties,[B108],S06D,1,E,
 An ASBIE property shall be based on an ASCC property.,ASBIE Properties,[B109],S06E,1,E,
@@ -131,8 +131,8 @@ A BBIE shall be based on a BCC.,BBIEs,[B137],S072,1,E,
 "BBIE usage rules shall not replicate ABIE, ASBIE, or BDT usage rules.",BBIEs,[B139],,2,,
 BBIE cardinality values shall never be an extension of its basis BCC cardinality values.,BBIEs,[B154],S073,1,E,
 "The DEN of a BBIE shall consist of the following components in the specified order:
-• The object class term and qualifiers, if any, of the owning ABIE, followed by a dot and space character.
-• The DEN of the included BBIE property.",BBIEs,[B161],S074,1,E,
+ï The object class term and qualifiers, if any, of the owning ABIE, followed by a dot and space character.
+ï The DEN of the included BBIE property.",BBIEs,[B161],S074,1,E,
 "The definition of a BBIE shall include the object class term and qualifiers, if any of the ABIE to which it belongs, and the definition of the included BBIE property.",BBIEs,[B163],,2W,,
 A BBIE with an unqualified property term shall have the same definition as the BCC the BBIE is based on.,BBIEs,[B164],S075,1,E,
 A BBIE with a qualified property term shall have a definition that semantically restricts the definition of the less qualified BBIE or BCC that the BBIE is based on.,BBIEs,[B165],,2W,,
@@ -140,10 +140,10 @@ A BBIE property shall be defined for each BBIE.,BBIE Properties,[B173],S076,1,E,
 A BBIE property shall only use a BDT based on an approved CDT in the UN/CEFACT Data Type Catalogue.,BBIE Properties,[B174],,1,E,
 A qualified BBIE property shall be a restriction of its basis BCC property or its higher level BBIE properties in a BBIE property hierarchy.,BBIE Properties,[B179],,3,,
 A BBIE property hierarchy shall be established when multiple qualifiers are used.,BBIE Properties,[B183],,3,,
-A BBIE property shall have a BDT that is based on the CDT of the basis BCC property.,BBIE Properties,[B189],,1,E,
-"The name of a BBIE property shall consist of a property term and property term qualifiers, if any, followed by a dot, a space character, and a representation term.",BBIE Properties,[B196],,1,E,
+A BBIE property shall have a BDT that is based on the CDT of the basis BCC property.,BBIE Properties,[B189],S077,1,E,
+"The name of a BBIE property shall consist of a property term and property term qualifiers, if any, followed by a dot, a space character, and a representation term.",BBIE Properties,[B196],S078,1,E,
 The name of a BBIE property shall be unique within the context of an object class but may be reused across different object classes.,BBIE Properties,[B197],,2,,
-The definition of a BBIE property shall include the property and representation term of the BBIE property.,BBIE Properties,[B199],,1,E,
+The definition of a BBIE property shall include the property and representation term of the BBIE property.,BBIE Properties,[B199],S079,1,E,
 The dots after DT terms shall be followed by a space character.,Data Types,[D13],S037,1,E,
 A CDT shall be one of the approved CDTs published in the UN/CEFACT Data Type Catalogue.,CDTs,[D19],X038,1,E,Manual
 Each CDT shall have a unique data type term within the library of which it is a part.,CDTs,[D20],S039,1,E,
@@ -190,9 +190,9 @@ Each CDT or BDT supplementary component shall have a cardinality that consists o
 "A supplementary component cardinality shall be equal to [0..1] if the supplementary component is optional, or [1..1] if mandatory.","CDT Supplementary Components, BDT Supplementary Components","[D135], [D331]",,1,E,
 "CDT supplementary component usage rules shall not replicate CDT, CDT content component, or CDT core value domain usage rules.",CDT Supplementary Components,[D137],,2,,
 "The DEN of a CDT supplementary component shall consist of the following parts in the order specified:
-• Data type term of the CDT to which it belongs, followed by a dot and space character (. ).
-• Property term which expresses the unique characteristic of the CDT supplementary component, followed by a dot and space character (. ).
-• Representation term which represents the value domain of the content of the CDT supplementary component.",CDT Supplementary Components,[D153],,1,E,
+ï Data type term of the CDT to which it belongs, followed by a dot and space character (. ).
+ï Property term which expresses the unique characteristic of the CDT supplementary component, followed by a dot and space character (. ).
+ï Representation term which represents the value domain of the content of the CDT supplementary component.",CDT Supplementary Components,[D153],,1,E,
 The CDT supplementary component DEN shall be unique amongst all CDT supplementary component names within the library of which it is a part.,CDT Supplementary Components,[D154],,1,E,
 "The CDT supplementary component definition shall include the data type term of the CDT to which it belongs, the property term and the representation term.",CDT Supplementary Components,[D156],,2W,,
 "CDT supplementary component core value domain usage rules shall not replicate CDT, CDT content component, CDT content component core value domain, or CDT supplementary component usage rules.",CDT Supplementary Components,[D191],,2,,
@@ -220,10 +220,10 @@ The BDT content component definition shall include the primitive type term and t
 Domain restrictions of a BDT content or supplementary component business value domain shall only be used to define restrictions on possible values.,"BDT Content Components, BDT Supplementary Components","[D283], [D370]",,3W,,
 BDT content or supplementary component business value domain domain restrictions shall be limited to those allowed for the primitive of the basis CDT content or supplementnary component as specified in the UN/CEFACT Data Type Catalogue.,"BDT Content Components, BDT Supplementary Components","[D285], [D372]",,3,,
 Each BDT content or supplementary component business value domain domain restriction shall have zero or one component restrictions for each facet type.,"BDT Content Components, BDT Supplementary Components","[D286], [D373]",,1,E,
-"Each BDT content or supplementary component business value domain – domain restriction shall contain the following attributes:
-• Facet Type (mandatory): Identifies the facet being defined.
-• Facet Value (mandatory): The actual facet restriction value.
-• Facet Language (mandatory for expression/not used otherwise): For a facet type of expression, defines the language of the regular expression of the facet value such as Perl, W3C XML Schema Definition Language, JAVA, or Microsoft .Net.","BDT Content Components, BDT Supplementary Components","[D287], [D374]",,2,,
+"Each BDT content or supplementary component business value domain ñ domain restriction shall contain the following attributes:
+ï Facet Type (mandatory): Identifies the facet being defined.
+ï Facet Value (mandatory): The actual facet restriction value.
+ï Facet Language (mandatory for expression/not used otherwise): For a facet type of expression, defines the language of the regular expression of the facet value such as Perl, W3C XML Schema Definition Language, JAVA, or Microsoft .Net.","BDT Content Components, BDT Supplementary Components","[D287], [D374]",,2,,
 Each BDT content or supplementary component business value domain business identifier scheme set of allowed values shall be equal to or less than the set of allowed values of its basis CDT content or supplementary component core value domain core identifier scheme or less restricted BDT content or supplementary component core value domain business identifier scheme.,"BDT Content Components, BDT Supplementary Components","[D302], [D389]",,2,,
 Each BDT content or supplementary component business value domain business code list set of allowed values shall be equal to or less than the set of allowed values of its basis CDT content or supplementary component core value domain core code list or less restricted BDT content or supplementary component core value domain business code list.,"BDT Content Components, BDT Supplementary Components","[D304], [D393]",,2,,
 "BDT content component business value domain usage rules shall not replicate BDT, BDT content component, BDT supplementary component or BDT supplementary component business value domain usage rules.",BDT Content Components,[D311],,2,,
@@ -240,28 +240,28 @@ The DEN of a BDT supplementary component shall be the DEN of the CDT supplementa
 "A BDT supplementary component business value domain shall inherit all of the properties and restrictions, including the name of the basis CDT supplementary component business value domain.",BDT Supplementary Components,[D364],,1,E,
 "BDT supplementary component business value domain usage rules shall not replicate BDT, BDT content component, BDT content component business value domain, or BDT supplementary component usage rules.",BDT Supplementary Components,[D398],,1,E,
 "Business context shall contain the combination of values for all approved context categories so as to define a unique and meaningful business context. In order to ensure uniqueness, every business context will have assigned a:
-• Unique Identifier (mandatory): The identifier that references the business context in a unique and unambiguous way.
-• Version Identifier (mandatory): An indication of the evolution over time of the business context instance.",Context,[X1],,1,E,
+ï Unique Identifier (mandatory): The identifier that references the business context in a unique and unambiguous way.
+ï Version Identifier (mandatory): An indication of the evolution over time of the business context instance.",Context,[X1],,1,E,
 "When describing a specific business context, a value or set of values shall be assigned to each of the approved context categories.",Context,[X4],,1,E,
 "Context values shall be defined as one of the eight recognized types:
-• business process context value
-• product context value
-• industry context value
-• geopolitical context value
-• official constraints context value
-• business process role context value
-• supporting role context value 
-• or system capabilities context value.",Context,[X5],,1,E,
+ï business process context value
+ï product context value
+ï industry context value
+ï geopolitical context value
+ï official constraints context value
+ï business process role context value
+ï supporting role context value 
+ï or system capabilities context value.",Context,[X5],,1,E,
 "Each context value shall include the following attributes:
-• Value (mandatory): Value describing a particular context.
-• Meaning (mandatory): Description of the meaning of the corresponding value.",Context,[X6],,1,E,
+ï Value (mandatory): Value describing a particular context.
+ï Meaning (mandatory): Description of the meaning of the corresponding value.",Context,[X6],,1,E,
 "Context classification schemes shall include the following attributes:
-• Context category (mandatory): Name used to identify the approved context category for which the classification scheme can be used.
-• Name (mandatory): Name under which the classification scheme is known.
-• Definition (mandatory): Definition of the classification scheme. 
-• Primitive Type (mandatory): Primitive type that is used for the representation of a context value in the classification scheme.
-• Hierarchy (mandatory): Indicator describing whether the classification scheme supports a hierarchical description of the context.
-• Owner (mandatory): Organization that is responsible for the classification scheme.",Context,[X7],,1,E,
+ï Context category (mandatory): Name used to identify the approved context category for which the classification scheme can be used.
+ï Name (mandatory): Name under which the classification scheme is known.
+ï Definition (mandatory): Definition of the classification scheme. 
+ï Primitive Type (mandatory): Primitive type that is used for the representation of a context value in the classification scheme.
+ï Hierarchy (mandatory): Indicator describing whether the classification scheme supports a hierarchical description of the context.
+ï Owner (mandatory): Organization that is responsible for the classification scheme.",Context,[X7],,1,E,
 Assigned business process contexts shall be from the standard hierarchical classification provided as part of the UN/CEFACT Catalogue of Common Business Processes.,Business Process Context,[X8],,3,,
 "Business process context values may be expressed as a single business process, or as a hierarchical set of business processes.",Business Process Context,[X9],,3,,
 Business process context values may be taken from extensions to the business processes described in the UN/CEFACT Catalogue of Common Business Processes as provided for in that document.,Business Process Context,[X10],,3,,
@@ -270,42 +270,42 @@ A single value or set of values may be used in a product classification context.
 "If a hierarchical system of values is used for product classification context, then these values may be at any level of the hierarchy.",Product Classification Context,[X13],,3,,
 "If more than one classification system is being employed, an additional value specifying which classification scheme has supplied the values used shall be conveyed.",Product Classification Context,[X14],,3,,
 "Product classification context code values shall be taken from recognized code lists to include:
-• Universal Standard Product and Service Specification (UNSPSC)
+ï Universal Standard Product and Service Specification (UNSPSC)
 o Custodian: GS1
-• Standard International Trade Classification (SITC Rev .3)
+ï Standard International Trade Classification (SITC Rev .3)
 o Custodian: United Nations Statistics Division (UNSD)
-• Harmonized Commodity Description and Coding System (HS)
+ï Harmonized Commodity Description and Coding System (HS)
 o Custodian: World Customs Organization (WCO)
-• Classification Of the purposes of non Profit Institutions serving households (COPI)
+ï Classification Of the purposes of non Profit Institutions serving households (COPI)
 o Custodian: UNSD (This provides a mapping between the first three.)",Product Classification Context,[X15],,3,,
 An industry classification context may contain a single value or set of values at any appropriate level of the value hierarchy.,Industry Classification Context,[X16],,3,,
 The industry classification context value hierarchy must be identified.,Industry Classification Context,[X17],,3,,
 "Industry classification context code values shall be taken from recognized code lists to include:
-• International Standard Industrial Classification (ISIC)
+ï International Standard Industrial Classification (ISIC)
 o Custodian: UNSD
-• Universal Standard Product and Service Specification (UNSPSC) Toplevel Segment [digits 1 and 2] used to define industry.
+ï Universal Standard Product and Service Specification (UNSPSC) Toplevel Segment [digits 1 and 2] used to define industry.
 o Custodian: ECCMA",Industry Classification Context,[X18],,3,,
 "Geopolitical context shall consist of appropriate continent, economic region, country, and region identifiers.",Geopolitical Context,[X19],,3,,
 Geopolitical context may associate one or more values with any component.,Geopolitical Context,[X20],,3,,
 "Geopolitical context shall employ the following values:
-• Continent
-• Country – ISO 3166.1
-• Country Sub-entity - ISO 3166.2
-• Economic Region
-• Global
-• Multi lateral Organizations",Geopolitical Context,[X21],,3,,
+ï Continent
+ï Country ñ ISO 3166.1
+ï Country Sub-entity - ISO 3166.2
+ï Economic Region
+ï Global
+ï Multi lateral Organizations",Geopolitical Context,[X21],,3,,
 "At any level of geopolitical context, a value may be a single value, a named aggregate or cross-border value.",Geopolitical Context,[X22],,3,,
 "Geopolitical context values shall be structured as follows:
-• Single Value: A single value indicating a single continent, economic region, country, or region, depending on position within the hierarchy.
-• Named Aggregate: A related group of values (which may themselves be single values, named aggregates, or cross-border pairs of values), which have been related and assigned a name. A named aggregate contains at least two values.
-• Cross-Border: One or more pairs of values, designated To, From, or Bi-directional, indicating the direction of cross-border Context. Values may be named aggregates or single values.",Geopolitical Context,[X23],,3,,
+ï Single Value: A single value indicating a single continent, economic region, country, or region, depending on position within the hierarchy.
+ï Named Aggregate: A related group of values (which may themselves be single values, named aggregates, or cross-border pairs of values), which have been related and assigned a name. A named aggregate contains at least two values.
+ï Cross-Border: One or more pairs of values, designated To, From, or Bi-directional, indicating the direction of cross-border Context. Values may be named aggregates or single values.",Geopolitical Context,[X23],,3,,
 "Points in geopolitical context values shall be specified by either a single value, or combination of values.",Geopolitical Context,[X24],,3,,
 The full path of the geopolitical context value must be used to understand the hierarchy when complex constructs are employed.,Geopolitical Context,[X25],,3,,
 A specific level in the geopolitical context value is understood to inherit all of the properties within its specific path except where otherwise specified.,Geopolitical Context,[X26],,3,,
 Geopolitical context values shall be taken from ISO 3166.1 and 3166.2.,Geopolitical Context,[X27],,3,,
 "The official constraints context shall consist of at least two values:
-• Identification of the legal or other classification used to identify the context values.
-• Identification of the official constraint itself. These values may represent a hierarchical structure depending on the official constraints system being referenced.",Official Constraints Context,[X28],,3,,
+ï Identification of the legal or other classification used to identify the context values.
+ï Identification of the official constraint itself. These values may represent a hierarchical structure depending on the official constraints system being referenced.",Official Constraints Context,[X28],,3,,
 Individual core component implementations shall register used official constraint classification schemes with the appropriate supporting core components registry implementation.,Official Constraints Context,[X29],,3,,
 Business process role context values shall be taken from an approved list provided by the business process model library being employed.,Business Process Role Context,[X30],,3,,
 The UN/CEFACT Catalogue of Common Business Processes shall be the definitive source of business process role context values for all UN/CEFACT BIEs.,Business Process Role Context,[X31],,3,,

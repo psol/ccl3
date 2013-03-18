@@ -7,13 +7,13 @@
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: January 21, 2012</sch:p>
+   <sch:p>Version: March 28, 2013</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
    <sch:pattern abstract="true" id="den">
       <sch:title>Dictionary Entry Name</sch:title>
-      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05E-S062, S067, S06C, S070, S074</sch:p>
+      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05E-S062, S067, S06C, S070, S074, S077, S078, S0979</sch:p>
 
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>

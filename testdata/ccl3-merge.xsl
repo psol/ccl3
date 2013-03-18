@@ -13,7 +13,7 @@
         How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com, create a file
         "files.xml" that specifies in which file is each part of the CCL and then just run the stylesheet             -->
 
-   <!-- Version: January 21, 2012 -->
+   <!-- Version: March 18, 2013 -->
 
    <xsl:output method="xml" indent="yes"/>
 
@@ -56,8 +56,8 @@
       <xsl:variable name="base-folder" select="$filename/../lst:BaseFolder"/>
       <xsl:variable name="base" select="if (ends-with($base-folder,'/')) then $base-folder else concat($base-folder,'/')"/>
       <xsl:variable name="doc" select="concat($base,$filename)"/>
-      <xsl:if test="not(doc-available($doc))"><xsl:message>File <xsl:value-of select="$doc"/> is not available</xsl:message></xsl:if>
-      <xsl:sequence select="doc($doc)/ccts:CoreComponentTechnicalSpecificationDefinition"/>
+      <xsl:if test="not(doc-available($doc))"><xsl:message>File <xsl:value-of select="$doc"/> cannot be read (check that there's not a problem with the schema)</xsl:message></xsl:if>
+      <xsl:sequence select="if (doc-available($doc)) then doc($doc)/ccts:CoreComponentTechnicalSpecificationDefinition else $filename"/>
    </xsl:function>
 
    <xsl:function name="f:extract-filename">
