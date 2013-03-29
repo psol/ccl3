@@ -7,13 +7,13 @@
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: March 28, 2013</sch:p>
+   <sch:p>Version: March 29, 2013</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
    <sch:pattern abstract="true" id="den">
       <sch:title>Dictionary Entry Name</sch:title>
-      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05E-S062, S067, S06C, S070, S074, S077, S078, S0979</sch:p>
+      <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05D-S062, S067, S06C, S070, S074, S077, S078, S0979</sch:p>
 
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>
@@ -347,6 +347,13 @@
          <sch:assert test="number (ccts:MinimumOccurenceValue) ge 0">(002A) Occurence minimum shall be zero or a positive integer</sch:assert>
          <sch:assert test="ccts:MaximumOccurenceValue = 'unbounded' or number (ccts:MaximumOccurenceValue) >= 0">(002A) Occurence maximum shall be zero or a positive integer or 'unbounded'</sch:assert>
       </sch:rule>
+      
+      <sch:rule context="ccts:CoreDataTypeSupplementaryComponent | ccts:BusinessDataTypeSupplementaryComponent">
+         <sch:assert test="child::ccts:Cardinality/ccts:MinimumOccurenceValue and child::ccts:Cardinality/ccts:MaximumOccurenceValue">(S05B) Each CDT or BDT supplementary component shall have a cardinality that consists of a set of values consisting of a minimum occurrence and a maximum occurrence.</sch:assert>
+         <sch:assert test="(ccts:Cardinality/ccts:MinimumOccurenceValue = 0 or ccts:Cardinality/ccts:MinimumOccurenceValue = 1) and (ccts:Cardinality/ccts:MaximumOccurenceValue = 1) and false()">(S05C) A supplementary component cardinality shall be equal to [0..1] if the supplementary component is optional, or [1..1] if mandatory.</sch:assert>
+      </sch:rule>
+      
+      
    </sch:pattern>
 
    <sch:pattern>
@@ -392,6 +399,21 @@
    </sch:pattern>
 
    <sch:pattern>
+      <sch:title>CDT supplementary component Property</sch:title>
+      <sch:rule context="ccts:CoreDataTypeSupplementaryComponent">
+         <sch:assert test="child::ccts:CoreDataTypeUID">(S05A) A BCC Property shall only use an approved CDT</sch:assert>
+         <sch:let name="puid" value="ccts:BasicCoreComponentPropertyUID"/>
+         <sch:let name="property" value="../../ccts:BasicCoreComponentProperty [ccts:UniqueID = $puid]"/>
+         
+         <sch:let name="duid" value="ccts:CoreDataTypeUID"/>
+         <sch:let name="dt" value="../../../ccts:DataType/ccts:CoreDataType [ccts:UniqueID = $duid]"/>
+         <sch:assert test="count ($dt) eq 1">(S05A) A BCC Property shall only use an approved CDT</sch:assert>
+         
+      </sch:rule>
+
+   </sch:pattern>
+   
+   <sch:pattern>
       <sch:title>Core Data Type</sch:title>
       <sch:rule context="ccts:DataType/ccts:CoreDataType">
          <sch:assert test="count (child::ccts:CoreDataTypeContentComponent) eq 1">(003F) A data type shall have one and only one content component</sch:assert>
@@ -429,6 +451,18 @@
          <sch:report test="//ccts:SchemeOrListUID | //CoreCodeListUID | //CodeIdentifierSchemeUID">(0053) Validation of list not implemented yet, please contact Schematron developers</sch:report>
       </sch:rule>
    </sch:pattern>
+
+   
+   
+   
+   <sch:pattern>
+      <sch:title> DEN in CDT supplementary component</sch:title>
+      <sch:rule context="ccts:CoreDataTypeSupplementaryComponent">
+         <sch:let name="keys" value="ccts:CoreDataTypeSupplementaryComponent/ccts:DictionaryEntryName"/>
+         <sch:assert test="count ($keys) = count (distinct-values ($keys))">(S05E) The CDT supplementary component DEN shall be unique amongst all CDT supplementary component names within the library of which it is a part.</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+   
 
    <!-- there's a more efficient version of   rule S002:
            count(//ccts:DictionaryEntryName) = count(distinct-values(//ccts:DictionaryEntryName))
