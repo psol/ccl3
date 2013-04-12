@@ -217,7 +217,6 @@
 			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="AssociationBusinessInformationEntityPropertyUID" type="IDType_655749"/>
-			<xsd:element name="BasedOnAssociatedCoreComponentUID" type="IDType_655749"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="AssociationBusinessInformationEntityPropertyType">
@@ -298,7 +297,6 @@
 			<xsd:element name="SequencingKeyOrdinal" type="OrdinalType_PQALZM"/>
 			<xsd:element ref="LocalizedInformation" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="BasicBusinessInformationEntityPropertyUID" type="IDType_655749"/>
-			<xsd:element name="BasedOnBasicCoreComponentUID" type="IDType_655749"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="BasicCoreComponentPropertyType">
