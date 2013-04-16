@@ -16,13 +16,9 @@
       <sch:p>Rules: S043-S002-S00D-S027-S004-S00B-S006-S00C-S034-S009-S043-S03B-S003-S03E, S05E-S062, S067, S06C, S070, S074, S077, S078, S0979</sch:p>
 
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
-         <!-- 
-            Regex tests :
-            ^[a-zA-Z]|[_ \.\-]*$
-            -->
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>
 
-         <sch:let name="regex1" value="if (string-length ($context) eq 0) then '^[a-zA-Z \.\-]*$' else '^[a-zA-Z_ \.\-]*$'"/>
+         <sch:let name="regex1" value="if (string-length ($context) eq 0 and string-length($propQualifier) eq 0 and string-length($typQualifier) eq 0) then '^[a-zA-Z \.\-]*$' else '^[a-zA-Z_ \.\-]*$'"/>
          <sch:assert test="matches (ccts:DictionaryEntryName, $regex1,'i')">Dictionary Entry Name shall only use English/ASCII alphabetic characters, the dot, space (and hyphen by exception)<sch:value-of select="ccts:DictionaryEntryName"/></sch:assert>
          <sch:report test="matches (ccts:DictionaryEntryName, '\-')" role="warning">Dictionary Entry Name shall limit the use of hyphen</sch:report>
          <!-- DEN can have 2, 3 or 4 components (including the context) -->
