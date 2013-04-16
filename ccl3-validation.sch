@@ -7,7 +7,7 @@
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: April 12, 2013</sch:p>
+   <sch:p>Version: April 16, 2013</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
@@ -28,9 +28,9 @@
               fortunately string-length(), through the automatic casting, allows us to test for both cases -->
          <sch:let name="contunder" value="if (string-length ($context) eq 0) then '' else concat ($context, '_ ')"/>
                  
-         <sch:let name="cldot" value="if (empty ($class)) then '' else concat (string-join(($clasQualifier, $class),  '_ '), '. ')"/>
-         <sch:let name="propdot" value="if (empty ($property)) then '' else concat ( string-join(($propQualifier, $property),  '_ '), '. ')"/>
-         <sch:let name="typdot" value="if (empty ($type)) then '' else (if($typQualifier != '') then string-join(($typQualifier, $type),  '_ ') else $type)"/>
+         <sch:let name="cldot" value="if (empty ($class))      then '' else concat (string-join(($clasQualifier, $class),  '_ '), '. ')"/>
+         <sch:let name="propdot" value="if (empty ($property)) then '' else if (empty ($type)) then string-join(($propQualifier, $property),  '_ ') else concat (string-join(($propQualifier, $property),  '_ '), '. ')"/>
+         <sch:let name="typdot" value="if (empty ($type))      then '' else string-join(($typQualifier, $type),  '_ ')"/>
          
          <sch:let name="target" value="concat ($cldot, $propdot, $typdot)"/>
          <!-- <sch:let name="target" value="concat ($contunder, $cldot, $propdot, $type)"/> -->
@@ -67,7 +67,7 @@
       <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
       <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
       <sch:param name="type"     value="'Details'"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AggregateCoreComponent"/>
    </sch:pattern>
    
@@ -79,7 +79,7 @@
       <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
       <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
       <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicCoreComponent | preceding-sibling::ccts:AssociationCoreComponent"/>
    </sch:pattern>
 
@@ -100,10 +100,10 @@
       <sch:param name="class"    value="()"/>
       <sch:param name="context"  value="()"/>
       <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
+      <sch:param name="clasQualifier" value="()"/>
+      <sch:param name="propQualifier" value="()"/>
       <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="ccts:RepresentationTermQualifier"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicCoreComponentProperty"/>
    </sch:pattern>
    
@@ -112,10 +112,10 @@
       <sch:param name="class"    value="()"/>
       <sch:param name="context"  value="()"/>
       <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
+      <sch:param name="clasQualifier" value="()"/>
+      <sch:param name="propQualifier" value="()"/>
       <sch:param name="type"              value="ccts:AssociatedObjectClassTerm"/>
-      <sch:param name="typQualifier"      value="ccts:AssociatedObjectClassTermQualifier"/>
+      <sch:param name="typQualifier"      value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AssociationCoreComponentProperty"/>
    </sch:pattern>
 
@@ -124,10 +124,10 @@
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
       <sch:param name="context"  value="()"/>
       <sch:param name="property" value="()"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
+      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
+      <sch:param name="propQualifier" value="()"/>
       <sch:param name="type"              value="'Type'"/>
-      <sch:param name="typQualifier"      value="''"/>
+      <sch:param name="typQualifier"      value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataType[parent::DataType]"/>
    </sch:pattern>
 
@@ -135,11 +135,11 @@
       <sch:param name="object"   value="ccts:CoreDataTypeContentComponent"/>
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
       <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="()"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"     value="'Content'"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="property" value="ccts:PropertyTerm"/>
+      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
+      <sch:param name="propQualifier" value="()"/>
+      <sch:param name="type"     value="()"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataTypeContentComponent"/>
    </sch:pattern>
 
@@ -148,10 +148,10 @@
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
       <sch:param name="context"  value="()"/>
       <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
+      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
+      <sch:param name="propQualifier" value="()"/>
       <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataTypeSupplementaryComponent"/>
    </sch:pattern>
 
@@ -163,7 +163,7 @@
       <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
       <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
       <sch:param name="type"     value="'Details'"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AggregateBusinessInformationEntity"/>
    </sch:pattern>
 
@@ -175,7 +175,7 @@
       <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
       <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
       <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="''"/>
+      <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity"/>
    </sch:pattern>
    
@@ -232,8 +232,14 @@
          <sch:assert test="ccts:ObjectClassTerm = $basis-acc/ccts:ObjectClassTerm">The object class term should have been <sch:value-of select="$basis-acc/ccts:ObjectClassTerm"/>.</sch:assert>
          <!-- this is a very limited implementation of rule S05E, but see properties-based-on abstract pattern as well -->
          <!-- TODO -->
-         <sch:assert test="(count (ccts:BasicBusinessInformationEntity) le count ($basis-acc/ccts:BasicCoreComponent)) and (count (ccts:AssociationBusinessInformationEntity) le count ($basis-acc/ccts:AssociationCoreComponent))">An ABIE shall be a restriction of its parent ACC or ABIE.<sch:value-of select="count (ccts:BasicBusinessInformationEntity)"/>_<sch:value-of select="count ($basis-acc/ccts:BasicCoreComponent)"/>--<sch:value-of select="count (ccts:AssociationBusinessInformationEntity)"/>_<sch:value-of select="count ($basis-acc/ccts:AssociationCoreComponent)"/></sch:assert>
-      
+      </sch:rule>
+      <sch:rule context="ccts:AggregateBusinessInformationEntity/ccts:BasicBusinessInformationEntity">
+         <sch:let name="den" value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:RepresentationTerm)"/>
+         <sch:assert test="$cc/ccts:AggregateCoreComponent/ccts:BasicCoreComponent[ccts:DictionaryEntryName = $den]">
+            An ABIE shall be a restriction of its parent ACC or ABIE.
+         </sch:assert>
+         
+ 
       
       </sch:rule>
       <!-- FIXME: following is a quick cut/paste from above, deleted one rule... need to turn these 2 patterns in an abstract pattern and create test data for BBIE -->
@@ -251,16 +257,14 @@
 
    <sch:pattern abstract="true" id="properties-based-on">
       <sch:p>S05D, S065, S069, S06B, S06E, S072-S073</sch:p>
-      <sch:rule context="$property">
+      <sch:rule context="$pproperty">
+         <sch:let name="local-den" value="$concatden"/>
          <sch:let name="acc-uid" value="parent::ccts:AggregateBusinessInformationEntity/ccts:BasedOnAggregateCoreComponentUID"/>
          <sch:let name="basis-uid" value="$based-on-uid"/>
-         <!--
-            Do we need to check if the ACC DEN matches with the ABIE DEN ? 
-            -->
-         <sch:let name="basis-property" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent/$based-on-property[ccts:DictionaryEntryName = $den2]"/>
-         <!--<sch:let name="basis-property" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent[ccts:DictionaryEntryName = $den2]/$based-on-property[$acc-property-uid = $basis-uid]"/>-->
-         <!--<sch:let name="basis-property" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent[ccts:UniqueID = $acc-uid]/$based-on-property[$acc-property-uid = $basis-uid]"/>-->
-         <sch:assert test="child::$based-on-uid and count ($basis-property) eq 1">The ABIE properties shall be based on the ACC properties.</sch:assert>
+         
+         <sch:let name="basis-property" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/ccts:AggregateCoreComponent/$based-on-property[ccts:DictionaryEntryName = $local-den]"/>
+         <sch:assert test="count ($basis-property) eq 1">The ABIE properties shall be based on the ACC properties.</sch:assert>
+         
          <sch:let name="min-basis" value="$basis-property/ccts:Cardinality/ccts:MinimumOccurenceValue"/>
          <sch:let name="max-basis" value="$basis-property/ccts:Cardinality/ccts:MaximumOccurenceValue"/>
          <sch:assert test="number (ccts:Cardinality/ccts:MinimumOccurenceValue) ge number ($min-basis)">The BIE or AsBIE minimal cardinality shall never be an extension of the BCC or AsCC it is based on <sch:value-of select="count ($basis-property)"/>-<sch:value-of select="$min-basis"/>_<sch:value-of select="ccts:Cardinality/ccts:MinimumOccurenceValue"/></sch:assert>
@@ -269,21 +273,21 @@
    </sch:pattern>
 
    <sch:pattern is-a="properties-based-on" id="bbie-property">
-      <sch:param name="property"          value="ccts:BasicBusinessInformationEntity"/>
-      <sch:param name="based-on-property" value="ccts:BasicCoreComponent"/>
-      <sch:param name="based-on-uid"      value="ccts:BasedOnBasicCoreComponentUID"/>
-      <sch:param name="acc-property-uid"  value="ccts:BasicCoreComponentPropertyUID"/>
-      <sch:param name="den"               value="ccts:DictionaryEntryName"/>
-      <sch:param name="den2"              value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:RepresentationTerm)"/>
+      <sch:param name="pproperty"            value="ccts:BasicBusinessInformationEntity"/>
+      <sch:param name="based-on-property"    value="ccts:BasicCoreComponent"/>
+      <sch:param name="based-on-uid"         value="ccts:BasedOnBasicCoreComponentUID"/>
+      <sch:param name="acc-property-uid"     value="ccts:BasicCoreComponentPropertyUID"/>
+      <sch:param name="denwithqualifiers"    value="ccts:DictionaryEntryName"/>
+      <sch:param name="concatden"            value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:RepresentationTerm)"/>
    </sch:pattern>
 
    <sch:pattern is-a="properties-based-on" id="asbie-property">
-      <sch:param name="property"          value="ccts:AssociationBusinessInformationEntity"/>
-      <sch:param name="based-on-property" value="ccts:AssociationCoreComponent"/>
-      <sch:param name="based-on-uid"      value="ccts:BasedOnAssociatedCoreComponentUID"/>
-      <sch:param name="acc-property-uid"  value="ccts:AssociationCoreComponentPropertyUID"/>
-      <sch:param name="den"               value="ccts:DictionaryEntryName"/>
-      <sch:param name="den2"              value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:AssociatedObjectClassTerm)"/>
+      <sch:param name="pproperty"            value="ccts:AssociationBusinessInformationEntity"/>
+      <sch:param name="based-on-property"    value="ccts:AssociationCoreComponent"/>
+      <sch:param name="based-on-uid"         value="ccts:BasedOnAssociatedCoreComponentUID"/>
+      <sch:param name="acc-property-uid"     value="ccts:AssociationCoreComponentPropertyUID"/>
+      <sch:param name="denwithqualifiers"    value="ccts:DictionaryEntryName"/>
+      <sch:param name="concatden"            value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:AssociatedObjectClassTerm)"/>
    </sch:pattern>
 
    <sch:pattern abstract="true" id="definition-based-on">
@@ -291,11 +295,13 @@
       <sch:p>S063, S075</sch:p>
       <!-- need separate patterns to based-on because a pattern only applies the first rule -->
       <sch:rule context="$xbie [count (ccts:ObjectClassTermQualifier) le 0]">
-         <sch:let name="cc-den" value="ccts:DictionaryEntryName"/>
+         <sch:let name="cc-den" value="$concatden"/>
          <sch:let name="cc-uid" value="ccts:BasedOnAggregateCoreComponentUID"/>
          <sch:let name="based-on-definition" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/$xcc[ccts:DictionaryEntryName = $cc-den]/ccts:Definition"/>
          <!--<sch:let name="based-on-definition" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/$xcc[ccts:UniqueID = $cc-uid]/ccts:Definition"/>-->
-         <sch:assert test="normalize-space (ccts:Definition) = normalize-space ($based-on-definition)">A BBIE or AsBIE with an unqualified object class shall have the same definition as the BCC or AsCC it is based on ''<sch:value-of select="$xcc-uid"/>'' -- <sch:value-of select="ccts:Definition"/> -- <sch:value-of select="$based-on-definition"/>.</sch:assert>
+         <sch:assert test="normalize-space (ccts:Definition) = normalize-space ($based-on-definition)">A BBIE or AsBIE with an unqualified object class shall have the same definition as the BCC or AsCC it is based on ''<sch:value-of select="$xcc-uid"/>'' 
+           <sch:value-of select="$cc-den"/>#
+            -- <sch:value-of select="ccts:Definition"/> -- <sch:value-of select="$based-on-definition"/>.</sch:assert>
       </sch:rule>
    </sch:pattern>
 
@@ -303,12 +309,14 @@
       <sch:param name="xbie"           value="ccts:AggregateBusinessInformationEntity"/>
       <sch:param name="xcc"            value="ccts:AggregateCoreComponent"/>
       <sch:param name="based-on-uid"   value="ccts:BasedOnAggregateCoreComponentUID"/>
+      <sch:param name="concatden"      value="concat(ccts:ObjectClassTerm, '. Details')"/>
    </sch:pattern>
 
    <sch:pattern is-a="definition-based-on" id="bbie-definition">
       <sch:param name="xbie"           value="ccts:BasicBusinessInformationEntity"/>
       <sch:param name="xcc"            value="ccts:AggregateCoreComponent/ccts:BasicCoreComponent"/>
       <sch:param name="based-on-uid"   value="ccts:BasedOnBasicCoreComponentUID"/>
+      <sch:param name="concatden"      value="concat(ccts:ObjectClassTerm, '. ', ccts:PropertyTerm, '. ', ccts:RepresentationTerm)"/>
    </sch:pattern>
 
    <sch:pattern abstract="true" id="bie-properties">
@@ -320,10 +328,6 @@
       <sch:rule context="$xprop">
          <sch:let name="bie-uid" value="ccts:UniqueID"/>
          <sch:let name="bie-property" value="parent::ccts:BusinessProperty/parent::ccts:BusinessInformationEntity/ccts:Package/ccts:AggregateBusinessInformationEntity/$xbie [$uid = $bie-uid]"/>
-         <!-- 
-            TODO : need to be checked, and see the CCTS rule
-         <sch:assert test="count ($bie-property) eq 1">A BBIE or an AsBIE property is defined but not used in a BBIE or an AsBIE.</sch:assert>
-            -->
       </sch:rule>
    </sch:pattern>
 
@@ -499,14 +503,9 @@
         (since there are other assertions to make sure that the parent names are properly reported in the DEN,
         and the parents themselves are guaranteed unique, it effectively guarantee unicity) -->
 
-
-
-    
-    <!-- NicoD : need to be validate --> 
     <sch:pattern>
         <sch:title>CDT supplementary component</sch:title>
         <sch:rule context="ccts:CoreDataTypeSupplementaryComponent">
-            
             <!-- 
                 Should it have an unique ID and version ID ? 
                 If yes, the validation can be done like with   
@@ -520,12 +519,9 @@
             --> 
             <sch:let name="rt" value="ccts:RepresentationTerm"/> 
             <sch:assert test="../../ccts:CoreDataType[ccts:DataTypeTerm eq $rt]">(S05A) The name of the CDT supplementary component representation term shall be one of the approved representation terms in the UN/CEFACT Data Type Catalogue.</sch:assert>
-            
-            
         </sch:rule>
     </sch:pattern>
-    
-    
+   
     <sch:pattern>
         <sch:title>CDT/BDT supplementary component Cardinality</sch:title>
         <sch:rule context="ccts:CoreDataTypeSupplementaryComponent | ccts:BusinessDataTypeSupplementaryComponent">
@@ -547,11 +543,5 @@
             <sch:assert test="../../../ccts:CoreComponent/ccts:AggregateCoreComponent[ccts:UniqueID eq $accid]/ccts:ObjectClassTerm eq $oct">(003E) An ABIE object class term shall be identical to its basis ACC object class term.</sch:assert>
         </sch:rule>
     </sch:pattern>
-    
-
-
-
-
-
 
 </sch:schema>
