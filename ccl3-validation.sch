@@ -7,7 +7,7 @@
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: April 16, 2013</sch:p>
+   <sch:p>Version: April 16, 2013 (17:57)</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
 
@@ -294,12 +294,12 @@
       <sch:title>Definition based on</sch:title>
       <sch:p>S063, S075</sch:p>
       <!-- need separate patterns to based-on because a pattern only applies the first rule -->
-      <sch:rule context="$xbie [count (ccts:ObjectClassTermQualifier) le 0]">
+      <sch:rule context="$xbie [count (ccts:ObjectClassTermQualifier) le 0 and count(ccts:PropertyTermQualifier) le 0]">
          <sch:let name="cc-den" value="$concatden"/>
          <sch:let name="cc-uid" value="ccts:BasedOnAggregateCoreComponentUID"/>
          <sch:let name="based-on-definition" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/$xcc[ccts:DictionaryEntryName = $cc-den]/ccts:Definition"/>
          <!--<sch:let name="based-on-definition" value="/ccts:CoreComponentTechnicalSpecificationDefinition/ccts:CoreComponent/$xcc[ccts:UniqueID = $cc-uid]/ccts:Definition"/>-->
-         <sch:assert test="normalize-space (ccts:Definition) = normalize-space ($based-on-definition)">A BBIE or AsBIE with an unqualified object class shall have the same definition as the BCC or AsCC it is based on ''<sch:value-of select="$xcc-uid"/>'' 
+         <sch:assert test="(normalize-space (ccts:Definition) = normalize-space ($based-on-definition)) or (ccts:Cardinality/ccts:MinimumOccurenceValue != $based-on-definition/parent::*/ccts:Cardinality/ccts:MinimumOccurenceValue) or (ccts:Cardinality/ccts:MaximumOccurenceValue != $based-on-definition/parent::*/ccts:Cardinality/ccts:MaximumOccurenceValue)">A BBIE or AsBIE with an unqualified object class shall have the same definition as the BCC or AsCC it is based on ''<sch:value-of select="$xcc-uid"/>'' 
            <sch:value-of select="$cc-den"/>#
             -- <sch:value-of select="ccts:Definition"/> -- <sch:value-of select="$based-on-definition"/>.</sch:assert>
       </sch:rule>
@@ -360,8 +360,11 @@
       <!-- I choose the most efficient implementation (but also the one that is hardest to track), because I expect this will be very few violations -->
       <!-- BTW turn these into sch:report, make more sense for the error message -->
       <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition">
+         <!--
+            this does not work, sadly
          <sch:let name="definitions" value="//ccts:Definition[string-length (.) gt 0]"/>
          <sch:assert test="count($definitions) = count (distinct-values($definitions))">(S00E) There are <sch:value-of select="count($definitions) - count (distinct-values($definitions))"/> duplicate definitions (the Schematron has another, less efficient, rule that you can uncomment to help pinpoint this error)</sch:assert>
+         -->
          <sch:let name="uids" value="//ccts:UniqueID"/>
          <sch:assert test="count ($uids) = count (distinct-values($uids))">(S023) There are <sch:value-of select="count ($uids) - count (distinct-values($uids))"/> duplicate object IDs</sch:assert>
          <sch:let name="versionids" value="//ccts:VersionID"/>
@@ -369,14 +372,94 @@
          <sch:let name="dtts" value="ccts:DataType/ccts:DataTypeTerm"/>
          <sch:assert test="count ($dtts) = count (distinct-values($dtts))">(S039) There are <sch:value-of select="count ($dtts) - count (distinct-values($dtts))"/> duplicate Data Type Terms</sch:assert>
       </sch:rule>
-      <!-- uncomment the following rule if you need to pinpoint the duplicate definition violation -->
-      <!--
-      <sch:rule context="ccts:Definition [string-length (.) gt 0]">
-         <sch:assert test="every $definition in preceding::ccts:Definition satisfies $definition != .">(S00E) Each object shall have its own unique definition</sch:assert>
-      </sch:rule>
-      -->
    </sch:pattern>
 
+   <sch:pattern abstract="true" id="unique-definition">
+      <sch:rule context="$thing[$definition/string-length (.) gt 0]">
+         <sch:assert test="every $t in preceding::$thing satisfies $t/$definition != ./$definition">(S00E) Each object shall have its own unique definition</sch:assert>
+      </sch:rule>
+   </sch:pattern>
+
+   <sch:pattern is-a="unique-definition" id="acc-unique-definition">
+      <sch:param name="thing"      value="ccts:AggregateCoreComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+
+   <sch:pattern is-a="unique-definition" id="bcc-unique-definition">
+      <sch:param name="thing"      value="ccts:BasicCoreComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="ascc-unique-definition">
+      <sch:param name="thing"      value="ccts:AssociationCoreComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+
+   <sch:pattern is-a="unique-definition" id="asccp-unique-definition">
+      <sch:param name="thing"      value="ccts:AssociationCoreComponentProperty"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+
+   <sch:pattern is-a="unique-definition" id="bccp-unique-definition">
+      <sch:param name="thing"      value="ccts:BasicCoreComponentProperty"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="abie-unique-definition">
+      <sch:param name="thing"      value="ccts:AggregateBusinessInformationEntity"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="bbie-unique-definition">
+      <sch:param name="thing"      value="ccts:BasicBusinessInformationEntity"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="asbie-unique-definition">
+      <sch:param name="thing"      value="ccts:AssociationBusinessInformationEntity"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="asbiep-unique-definition">
+      <sch:param name="thing"      value="ccts:AssociationBusinessInformationEntityProperty"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="bbiep-unique-definition">
+      <sch:param name="thing"      value="ccts:BasicBusinessInformationEntityProperty"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="cdt-unique-definition">
+      <sch:param name="thing"      value="ccts:CoreDataType"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="cdtcc-unique-definition">
+      <sch:param name="thing"      value="ccts:CoreDataTypeContentComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="cdtsc-unique-definition">
+      <sch:param name="thing"      value="ccts:CoreDataTypeSupplementaryComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="bdt-unique-definition">
+      <sch:param name="thing"      value="ccts:BusinessDataType"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="bdtcc-unique-definition">
+      <sch:param name="thing"      value="ccts:BusinessDataTypeContentComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
+   <sch:pattern is-a="unique-definition" id="bdtsc-unique-definition">
+      <sch:param name="thing"      value="ccts:BusinessDataTypeSupplementaryComponent"/>
+      <sch:param name="definition" value="ccts:Definition"/>
+   </sch:pattern>
+   
    <sch:pattern>
       <sch:title>Object Completeness</sch:title>
       <sch:p>S023-S024, S027, S064, S066, S06D</sch:p>
@@ -417,7 +500,7 @@
 
    <sch:pattern>
       <sch:title>Sequency Key</sch:title>
-      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociationCoreComponent">
+      <sch:rule context="ccts:BasicCoreComponent | ccts:AssociatpionCoreComponent">
          <sch:assert test="(child::ccts:SequencingKeyOrdinal and (ccts:SequencingKeyOrdinal castable as xs:integer)) or not (string-length (ccts:DictionaryEntryName) gt 0)">(002B) CCs and AsCCs need a unique sequencing key</sch:assert>
       </sch:rule>
       <sch:rule context="ccts:AggregateCoreComponent [string-length (ccts:DictionaryEntryName) gt 0]">
