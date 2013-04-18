@@ -483,7 +483,7 @@
    <sch:pattern>
       <sch:title></sch:title>
    </sch:pattern>
-
+   
    <sch:pattern>
       <sch:title>Not implemented yet</sch:title>
       <sch:rule context="ccts:CoreComponentTechnicalSpecificationDefinition" role="warning">
@@ -494,6 +494,28 @@
          <sch:report test="//ccts:Primitive">(0047) Validation of primitives not implemented yet, please contact Schematron developers</sch:report>
          <sch:report test="//ccts:SchemeOrListUID | //CoreCodeListUID | //CodeIdentifierSchemeUID">(0053) Validation of list not implemented yet, please contact Schematron developers</sch:report>
       </sch:rule>
+   </sch:pattern>
+   
+   <sch:pattern>
+      <sch:title>Usage Rules</sch:title>
+      <sch:rule context="ccts:CoreDataTypeContentComponent">
+         <sch:let name="ur-id" value="ccts:UsageRuleID"/>
+         <sch:assert test="count(//(ccts:CoreDataType | ccts:CoreDataTypeSupplementaryComponent | ccts:CoreValueDomain)[ccts:UsageRuleID = $ur-id]) = 0">(l140) CDT content component usage rules shall not replicate CDT, CDT supplementary component, or CDT core value domain usage rules. (<sch:value-of select="ccts:UsageRuleID"/>)</sch:assert>
+      </sch:rule>
+      <sch:rule context="ccts:CoreDataTypeSupplementaryComponent">
+         <sch:let name="ur-id" value="ccts:UsageRuleID"/>
+         <sch:assert test="count(//(ccts:CoreDataType | ccts:CoreDataTypeContentComponent)[ccts:UsageRuleID = $ur-id]) = 0">(l172) CDT supplementary component usage rules shall not replicate CDT, CDT content component, or CDT core value domain usage rules. (<sch:value-of select="ccts:UsageRuleID"/>)</sch:assert>
+      </sch:rule>
+      
+      <sch:rule context="ccts:BusinessDataTypeContentComponent">
+         <sch:let name="ur-id" value="ccts:UsageRuleID"/>
+         <sch:assert test="count(//(ccts:BusinessDataType | ccts:BusinessDataTypeSupplementaryComponent | ccts:BusinessValueDomain)[ccts:UsageRuleID = $ur-id]) = 0">(l192) BDT content component usage rules shall not replicate BDT, BDT supplementary component, or BDT business value domain usage rules. (<sch:value-of select="ccts:UsageRuleID"/>)</sch:assert>
+      </sch:rule>
+      <sch:rule context="ccts:BusinessDataTypeSupplementaryComponent">
+         <sch:let name="ur-id" value="ccts:UsageRuleID"/>
+         <sch:assert test="count(//(ccts:BusinessDataType | ccts:BusinessDataTypeContentComponent | ccts:BusinessValueDomain)[ccts:UsageRuleID = $ur-id]) = 0">(l211) BDT supplementary component usage rules shall not replicate BDT, BDT content component, or BDT core value domain usage rules. (<sch:value-of select="ccts:UsageRuleID"/>)</sch:assert>
+      </sch:rule>
+      
    </sch:pattern>
 
    <!-- there's a more efficient version of   rule S002:
