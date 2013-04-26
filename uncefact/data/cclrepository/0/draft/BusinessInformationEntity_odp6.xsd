@@ -95,6 +95,9 @@
 	<xsd:element name="Role" type="ContextType"/>
 	<xsd:element name="SupportingRole" type="ContextType"/>
 	<xsd:element name="SystemContraint" type="ContextType"/>
+	<xsd:element name="CEFACTDocumentation" type="CEFACTDocumentationType"/>
+	<xsd:element name="ChangeRequest" type="ChangeRequestType"/>
+	<xsd:element name="PublicationInformation" type="PublicationInformationType"/>
 	<!-- ====================================================================== -->
 	<!-- =====      Type Definitions                                                                                        ===== -->
 	<!-- ====================================================================== -->
@@ -104,6 +107,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -122,38 +126,8 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="AggregateCoreComponentType">
-		<xsd:annotation>
-			<xsd:documentation>
-				<ChangeRequest>
-					<Type/>
-					<WorkingComments/>
-					<RefVersionID/>
-					<SubmitterID/>
-					<RefChangeRequestID/>
-					<ID/>
-					<Harmonization>
-						<Status/>
-						<StatusDate/>
-						<Comment/>
-					</Harmonization>
-					<SubmittedDefinition/>
-					<SubmitterComment/>
-					<SubmittedDEN/>
-				</ChangeRequest>
-				<Publication>
-					<Examples/>
-					<TDED/>
-					<Source/>
-					<Comment/>
-					<Deprecation>
-						<Type/>
-						<SubmitterID/>
-						<AppliedVersionID/>
-					</Deprecation>
-				</Publication>
-			</xsd:documentation>
-		</xsd:annotation>
 		<xsd:sequence>
+			<xsd:element name="CEFACTDocumentation" type="CEFACTDocumentationType" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -169,38 +143,8 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="AssociationBusinessInformationEntityType">
-		<xsd:annotation>
-			<xsd:documentation>
-				<ChangeRequest>
-					<Type/>
-					<WorkingComments/>
-					<RefVersionID/>
-					<SubmitterID/>
-					<RefChangeRequestID/>
-					<ID/>
-					<Harmonization>
-						<Status/>
-						<StatusDate/>
-						<Comment/>
-					</Harmonization>
-					<SubmittedDefinition/>
-					<SubmitterComment/>
-					<SubmittedDEN/>
-				</ChangeRequest>
-				<Publication>
-					<Examples/>
-					<TDED/>
-					<Source/>
-					<Comment/>
-					<Deprecation>
-						<Type/>
-						<SubmitterID/>
-						<AppliedVersionID/>
-					</Deprecation>
-				</Publication>
-			</xsd:documentation>
-		</xsd:annotation>
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="ObjectClassTermQualifier" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
@@ -221,6 +165,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="AssociationBusinessInformationEntityPropertyType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -235,6 +180,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="AssociationCoreComponentPropertyType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -247,6 +193,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="AssociationCoreComponentType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="ObjectClassTerm" type="TextType_568D06"/>
@@ -263,6 +210,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="BasicBusinessInformationEntityPropertyType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -279,6 +227,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="BasicBusinessInformationEntityType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="ObjectClassTermQualifier" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
@@ -301,6 +250,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="BasicCoreComponentPropertyType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="UniqueID" type="IDType_655749"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
@@ -315,6 +265,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="BasicCoreComponentType">
 		<xsd:sequence>
+			<xsd:element ref="CEFACTDocumentation" minOccurs="0"/>
 			<xsd:element name="DictionaryEntryName" type="NameType_ADAD10" minOccurs="0"/>
 			<xsd:element name="Definition" type="TextType_568D06"/>
 			<xsd:element name="ObjectClassTerm" type="TextType_568D06"/>
@@ -627,6 +578,40 @@
 				<xsd:element name="Primitive" type="RestrictedPrimitiveType" minOccurs="0"/>
 				<xsd:element name="SchemeOrListUID" type="IDType_655749" minOccurs="0"/>
 			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CEFACTDocumentationType">
+		<xsd:sequence>
+			<xsd:element name="ChangeRequest" type="ChangeRequestType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="PublicationInformation" type="PublicationInformationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChangeRequestType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="IDType_655749"/>
+			<xsd:element name="TypeCode" type="CodeType_ED40BA"/>
+			<xsd:element name="WorkingComment" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="BaseLibrary" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SubmitterID" type="IDType_655749"/>
+			<xsd:element name="SubmittedDate"/>
+			<xsd:element name="HarmonizationStatusDate" minOccurs="0"/>
+			<xsd:element name="HarmonizationStatus" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="HarmonizationComment" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SubmittedDefinition" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SubmittedComment" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SubmittedDictionaryEntryName" type="TextType_568D06" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PublicationInformationType">
+		<xsd:sequence>
+			<xsd:element name="UNID" type="IDType_655749" minOccurs="0"/>
+			<xsd:element name="Example" type="TextType_568D06" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="TDED" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SourceLibrary" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="PublicationComment" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="FlagType" type="TextType_568D06" minOccurs="0"/>
+			<xsd:element name="SubmitterID" type="IDType_655749" minOccurs="0"/>
+			<xsd:element name="AppliedLibrary" type="TextType_568D06" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 </xsd:schema>
