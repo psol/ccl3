@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" queryBinding="xslt2">
+<sch:schema queryBinding="xslt2"
+   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:fn="http://marchal.com/2013/ccl3">
    <sch:title>CCTS 3.0 Validation Rules</sch:title>
    <sch:p>Copyright 2012, Benoît Marchal http://marchal.com. This work is licensed under the Creative Commons BY-SA license 3.0.</sch:p>
    <sch:p>To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/</sch:p>
    <sch:p>Latest version of this file resides at: http://github.com/psol/ccl3</sch:p>
    <sch:p>Based on validation rules compiled by Chris Hassler et Mary Kay Blantz on December 7, 2012.</sch:p>
    <sch:p>Based on XML4CCTS ODP6 from March 7, 2011 at http://www1.unece.org/cefact/platform/download/attachments/45023344/Specification_XMLForCCTS_Version+1+0+ODP6_20110218.docx</sch:p>
+
    <sch:p>How to apply? Many options but the easiest is to get oXygen from http://www.oxygenxml.com then choose Document|Validation|Validate with...</sch:p>
-   <sch:p>Version: April 16, 2013 (17:57)</sch:p>
+   <sch:p>Warning! This version uses XSL-declared functions and the xsl:include element so… you must set allow-foreign to true to apply it.</sch:p>
+   <sch:p>With oXygen, go to Preferences|XML|XML Parser|Schematron and make sure Allow foreign elements is checked.</sch:p>
+   <sch:p>If using the command-line version (XSLT generator) then you must set the allow-foreign parameter to true</sch:p>
+
+   <sch:p>Version: July 1, 2013</sch:p>
 
    <sch:ns prefix="ccts" uri="urn:un:unece:uncefact:ccl:draft:xmlforccts:3"/>
+   <sch:ns prefix="fn"   uri="http://marchal.com/2013/ccl3"/>
+   
+   <xsl:include href="../commons/functions.xsl"/>
+   
+   <sch:pattern>
+      <!-- for the time being, this duplicate some of the controls of the DEN below but it's using functions -->
+      <!-- which we hope to generalize in the future…                                                        -->
+      <sch:rule context="ccts:AggregateCoreComponent | ccts:BasicCoreComponent | ccts:AssociationCoreComponent | ccts:BasicCoreComponentProperty | ccts:AssociationCoreComponentProperty | ccts:DataType/ccts:CoreDataType | 
+                         ccts:CoreDataTypeContentComponent | ccts:CoreDataTypeSupplementaryComponent | ccts:AggregateBusinessInformationEntity | ccts:BasicBusinessInformationEntity | ccts:AssociationBusinessInformationEntity">
+         <sch:assert test="empty(ccts:DictionaryEntryName) or ccts:DictionaryEntryName = fn:format-den(.)">Incoherent DEN for "<sch:value-of select="ccts:DictionaryEntryName"/>" (expecting "<sch:value-of
+                                 select="fn:format-den(.)"/>, difference from #<sch:value-of select="fn:first-difference(ccts:DictionaryEntryName, fn:format-den(.))"/>")</sch:assert>
+      </sch:rule>
+   </sch:pattern>
 
    <sch:pattern abstract="true" id="den">
       <sch:title>Dictionary Entry Name</sch:title>
@@ -18,24 +40,9 @@
       <sch:rule context="$object [ccts:DictionaryEntryName/text()]">
          <sch:assert test="if (exists ($class)) then string-length ($class) gt 0 else true ()"><sch:name/> shall have a <sch:value-of select="name ($class)"/></sch:assert>
 
-         <sch:let name="regex1" value="if (string-length ($context) eq 0 and string-length($propQualifier) eq 0 and string-length($typQualifier) eq 0) then '^[a-zA-Z \.\-]*$' else '^[a-zA-Z_ \.\-]*$'"/>
+         <sch:let name="regex1" value="if ($hasQual) then '^[a-zA-Z_ \.\-]*$' else '^[a-zA-Z \.\-]*$'"/>
          <sch:assert test="matches (ccts:DictionaryEntryName, $regex1,'i')">Dictionary Entry Name shall only use English/ASCII alphabetic characters, the dot, space (and hyphen by exception)<sch:value-of select="ccts:DictionaryEntryName"/></sch:assert>
          <sch:report test="matches (ccts:DictionaryEntryName, '\-')" role="warning">Dictionary Entry Name shall limit the use of hyphen</sch:report>
-         <!-- DEN can have 2, 3 or 4 components (including the context) -->
-         <!-- this tests which components are needed and whether they are available -->
-         <!-- context is handled differently because it is optional, so even when a context is given as a parameter
-              it may be empty... in which you don't insert the separator
-              fortunately string-length(), through the automatic casting, allows us to test for both cases -->
-         <sch:let name="contunder" value="if (string-length ($context) eq 0) then '' else concat ($context, '_ ')"/>
-                 
-         <sch:let name="cldot" value="if (empty ($class))      then '' else concat (string-join(($clasQualifier, $class),  '_ '), '. ')"/>
-         <sch:let name="propdot" value="if (empty ($property)) then '' else if (empty ($type)) then string-join(($propQualifier, $property),  '_ ') else concat (string-join(($propQualifier, $property),  '_ '), '. ')"/>
-         <sch:let name="typdot" value="if (empty ($type))      then '' else string-join(($typQualifier, $type),  '_ ')"/>
-         
-         <sch:let name="target" value="concat ($cldot, $propdot, $typdot)"/>
-         <!-- <sch:let name="target" value="concat ($contunder, $cldot, $propdot, $type)"/> -->
-         
-         <sch:assert test="ccts:DictionaryEntryName = $target">DEN shall be <sch:value-of select="$target"/> instead of <sch:value-of select="ccts:DictionaryEntryName"/>(<sch:value-of select="count($propQualifier)"/>)(<sch:value-of select="$propQualifier"/>)</sch:assert>
 
          <sch:assert test="every $o in $like satisfies not ($o/ccts:DictionaryEntryName) or ($o/ccts:DictionaryEntryName ne ccts:DictionaryEntryName)">Dictionary Entry Name shall be unique</sch:assert>
          <sch:let name="words" value="tokenize (ccts:DictionaryEntryName, '[\. ]+')"/>
@@ -62,107 +69,63 @@
    <sch:pattern is-a="den" id="acc-den">
       <sch:param name="object"   value="ccts:AggregateCoreComponent"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="()"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"     value="'Details'"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AggregateCoreComponent"/>
    </sch:pattern>
    
    <sch:pattern is-a="den" id="bcc-den">
       <sch:param name="object"   value="ccts:BasicCoreComponent"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicCoreComponent | preceding-sibling::ccts:AssociationCoreComponent"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="ascc-den">
       <sch:param name="object"   value="ccts:AssociationCoreComponent"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"              value="ccts:AssociatedObjectClassTerm"/>
-      <sch:param name="typQualifier"      value="ccts:AssociatedObjectClassTermQualifier"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicCoreComponent | preceding-sibling::ccts:AssociationCoreComponent"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="bccp-den">
       <sch:param name="object"   value="ccts:BasicCoreComponentProperty"/>
       <sch:param name="class"    value="()"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="()"/>
-      <sch:param name="propQualifier" value="()"/>
-      <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicCoreComponentProperty"/>
    </sch:pattern>
    
    <sch:pattern is-a="den" id="asccp-den">
       <sch:param name="object"   value="ccts:AssociationCoreComponentProperty"/>
       <sch:param name="class"    value="()"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="()"/>
-      <sch:param name="propQualifier" value="()"/>
-      <sch:param name="type"              value="ccts:AssociatedObjectClassTerm"/>
-      <sch:param name="typQualifier"      value="()"/>
+      <sch:param name="hasQual"  value="false()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AssociationCoreComponentProperty"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="cdt-den">
       <sch:param name="object"   value="ccts:DataType/ccts:CoreDataType"/>
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="()"/>
-      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
-      <sch:param name="propQualifier" value="()"/>
-      <sch:param name="type"              value="'Type'"/>
-      <sch:param name="typQualifier"      value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataType[parent::DataType]"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="cdtc-den">
       <sch:param name="object"   value="ccts:CoreDataTypeContentComponent"/>
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
-      <sch:param name="propQualifier" value="()"/>
-      <sch:param name="type"     value="()"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataTypeContentComponent"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="cdts-den">
       <sch:param name="object"   value="ccts:CoreDataTypeSupplementaryComponent"/>
       <sch:param name="class"    value="ccts:DataTypeTerm"/>
-      <sch:param name="context"  value="()"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:DataTypeTermQualifier"/>
-      <sch:param name="propQualifier" value="()"/>
-      <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:CoreDataTypeSupplementaryComponent"/>
    </sch:pattern>
 
    <sch:pattern is-a="den" id="abie-den">
       <sch:param name="object"   value="ccts:AggregateBusinessInformationEntity"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="property" value="()"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"     value="'Details'"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="typQualifier"     value="()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:AggregateBusinessInformationEntity"/>
    </sch:pattern>
@@ -170,24 +133,14 @@
    <sch:pattern is-a="den" id="bbie-den">
       <sch:param name="object"   value="ccts:BasicBusinessInformationEntity"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"     value="ccts:RepresentationTerm"/>
-      <sch:param name="typQualifier"     value="()"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity"/>
    </sch:pattern>
    
    <sch:pattern is-a="den" id="asbie-den">
       <sch:param name="object"   value="ccts:AssociationBusinessInformationEntity"/>
       <sch:param name="class"    value="ccts:ObjectClassTerm"/>
-      <sch:param name="context"  value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="property" value="ccts:PropertyTerm"/>
-      <sch:param name="clasQualifier" value="ccts:ObjectClassTermQualifier"/>
-      <sch:param name="propQualifier" value="ccts:PropertyTermQualifier"/>
-      <sch:param name="type"              value="ccts:AssociatedObjectClassTerm"/>
-      <sch:param name="typQualifier"      value="ccts:AssociatedObjectClassTermQualifier"/>
+      <sch:param name="hasQual"  value="true()"/>
       <sch:param name="like"     value="preceding-sibling::ccts:BasicBusinessInformationEntity | preceding-sibling::ccts:AssociationBusinessInformationEntity"/>
    </sch:pattern>
 
