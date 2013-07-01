@@ -9,5 +9,5 @@ Validation rules for UN/CEFACT CCL 3.0
   (warning the testdata library may have been modified for testing purposes: adding or removing errors
   do not rely on it for anything but testing the Schematron itself)
 
-'''Warning''' the Schematron imports XSL functions so you must set allow-foreign to true
+_Warning_ the Schematron imports XSL functions so you must set allow-foreign to true
 when generating the XSLT stylesheets.
